@@ -1,18 +1,25 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+    {{ state.count }}
+    <button @click="addCounter(123)">+</button>
+    <van-button> 123 </van-button>
   </div>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
-import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
-
-@Options({
-  components: {
-    HelloWorld
+import { defineComponent, reactive } from 'vue'
+export default defineComponent({
+  setup() {
+    const state = reactive({
+      count: 0
+    })
+    function addCounter(num: number) {
+      state.count += num
+    }
+    return {
+      state,
+      addCounter
+    }
   }
 })
-export default class Home extends Vue {}
 </script>

@@ -7,6 +7,13 @@ const tsImportPluginFactory = require("ts-import-plugin");
 const pxtoviewport = require("postcss-px-to-viewport");
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
+const path = require("path");
+
+function resolve(dir) {
+  return path.join(__dirname, dir);
+}
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const autoprefixer = require("autoprefixer");
 module.exports = {
   css: {
@@ -21,6 +28,15 @@ module.exports = {
       }
     }
   },
+  configureWebpack: {
+    resolve: {
+      alias: {
+        "@": resolve("src"),
+        "@assets": resolve("src/assets")
+      }
+    }
+  },
+
   chainWebpack: config => {
     config.module
       .rule("ts")

@@ -1,0 +1,63 @@
+.border(
+    @borderWidth: 1px; 
+    @borderStyle: solid; 
+    @borderColor: @lignt-gray-color; 
+    @borderRadius: 0) {
+    position: relative;
+    &:before {
+        content: '';
+        position: absolute;
+        width: 98%;
+        height: 98%;
+        top: 0;
+        left: 0;
+        transform-origin: left top;
+        -webkit-transform-origin: left top;
+        box-sizing: border-box;
+        pointer-events: none;
+    }
+    @media (-webkit-min-device-pixel-ratio: 2) {
+        &:before {
+            width: 200%;
+            height: 200%;
+            -webkit-transform: scale(.5);
+        }
+    }
+    @media (-webkit-min-device-pixel-ratio: 2.5) {
+        &:before {
+            width: 250%;
+            height: 250%;
+            -webkit-transform: scale(.4);
+        }
+    }
+    @media (-webkit-min-device-pixel-ratio: 2.75) {
+        &:before {
+            width: 275%;
+            height: 275%;
+            -webkit-transform: scale(1 / 2.75);
+        }
+    }
+    @media (-webkit-min-device-pixel-ratio: 3) {
+        &:before {
+            width: 300%;
+            height: 300%;
+            transform: scale(1 / 3);
+            -webkit-transform: scale(1 / 3);
+        }
+    }
+    .border-radius(@borderRadius);
+    &:before {
+        border-width: @borderWidth;
+        border-style: @borderStyle;
+        border-color: @borderColor;
+    }
+}
+
+.border-all(
+	@borderWidth: 1px; 
+	@borderStyle: solid; 
+	@borderColor: @lignt-gray-color; 
+	@borderRadius: 0) {
+    .border(@borderWidth; @borderStyle; @borderColor; @borderRadius);
+}
+

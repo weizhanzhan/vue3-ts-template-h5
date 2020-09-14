@@ -9,7 +9,9 @@
 - [移动端1px边框](#移动端1px边框)
 - [tsconfig配置](#tsconfig配置)
 - [语法检测自动格式代码](#语法检测自动格式代码)
-
+- [发布&部署](#发布&部署)
+- [关于我](#关于我)
+- [感谢](#感谢)
 ## 基础搭建
 - vue3配置
 ```sh
@@ -135,6 +137,8 @@ export const vantPlugins = {
   }
 };
 
+```
+```js
 //main.ts 使用
 
 import { createApp } from 'vue'
@@ -206,11 +210,87 @@ table {
 ```
 
 ## 移动端1px边框
-问题分析：有些手机的屏幕分辨率较高，是2-3倍屏幕。css样式中border:1px solid red;在2倍屏下，显示的并不是1个物理像素，而是2个物理像素。解决方案如下：
-- 1. border.css
-```css
+- 问题分析：有些手机的屏幕分辨率较高，是2-3倍屏幕。css样式中border:1px solid red;在2倍屏下，显示的并不是1个物理像素，而是2个物理像素。解决方案如下：
+- 利用 css 的 伪元素::after + transfrom 进行缩放
+为什么用伪元素？ 因为伪元素::after或::before是独立于当前元素，可以单独对其缩放而不影响元素本身的缩放
+>伪元素大多数浏览器默认单引号也可以使用，和伪类一样形式，而且单引号兼容性（ie）更好些
+>我是用scss写的mixins，其他与编译器道理道理都差不多
+```scss
+/*单条border样式*/
+@mixin border-1px ($color, $direction) {
+  position: relative;
+  border: none;
+  &::after{
+    content: '';
+    position: absolute;
+    background: $color;
+    @if $direction == left {
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 2px;
+      transform: scaleX(0.5);
+      transform-origin: left 0;
+    }
+    @if $direction == right {
+      right: 0;
+      top: 0;
+      height: 100%;
+      width: 2px;
+      transform: scaleX(0.5);
+      transform-origin: right 0;
+    }
+    @if $direction == bottom {
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      transform: scaleY(0.5);
+      transform-origin: 0 bottom;
+    }
+    @if $direction == top {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      transform: scaleY(0.5);
+      transform-origin: 0 top;
+    }
+  }
+}
 
+/*四条border样式*/
+@mixin all-border-1px ($color, $radius) {
+  position: relative;
+  border: none;
+  &::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 2px solid $color;
+    border-radius: $radius * 2;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 200%;
+    height: 200%;
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+    -webkit-transform-origin: left top;
+    transform-origin: left top;
+  }
+
+}
 ```
+- 使用
+```scss
+@import "@assets/style/mixin.scss";//引入
+
+.box{
+  @include all-border-1px(#eeeeee, 0); //使用
+}
+```
+
 
 ## tsconfig配置
 把compileOnSave和sourceMap 设置成false，如果为true的话，在保存ts文件的时候会自动生成js和map文件
@@ -333,3 +413,20 @@ module.exports = {
     "explorer.confirmDelete": false // 两个选择器中是否换行
   }
 ```
+
+## 发布&部署
+
+- 网站工具：https://vercel.com/
+- 用github账号登录（我项目是部署在guthub上的）
+- 点击import project -> import git repository
+- 输入自己的项目的git地址 https://xxx/xxx/xxx
+- 点击continue就会自动部署啦！部署好后会生成地址可以直接访问🍾
+
+
+## 关于我
+![Image text](https://github.com/weizhanzhan/antd-vue-admin/blob/typescript_dev/public/me.png)
+加我微信，邀你进入技术交流群，交流学习 😄 共同进步<br>
+如果喜欢请给我一个小♥♥ ⭐ （づ￣3￣）づ
+
+## 感谢
+[vue-h5-template](https://github.com/sunniejs/vue-h5-template)

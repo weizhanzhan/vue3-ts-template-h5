@@ -1,0 +1,65 @@
+/*单条border样式*/
+@mixin border-1px ($color, $direction) {
+  position: relative;
+  border: none;
+  &::after{
+    content: '';
+    position: absolute;
+    background: $color;
+    @if $direction == left {
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 2px;
+      transform: scaleX(0.5);
+      transform-origin: left 0;
+    }
+    @if $direction == right {
+      right: 0;
+      top: 0;
+      height: 100%;
+      width: 2px;
+      transform: scaleX(0.5);
+      transform-origin: right 0;
+    }
+    @if $direction == bottom {
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      transform: scaleY(0.5);
+      transform-origin: 0 bottom;
+    }
+    @if $direction == top {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      transform: scaleY(0.5);
+      transform-origin: 0 top;
+    }
+  }
+}
+
+/*四条border样式*/
+@mixin all-border-1px ($color, $radius) {
+  position: relative;
+  border: none;
+  &::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 2px solid $color;
+    border-radius: $radius * 2;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 200%;
+    height: 200%;
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+    -webkit-transform-origin: left top;
+    transform-origin: left top;
+  }
+
+}

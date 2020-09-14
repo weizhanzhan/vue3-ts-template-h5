@@ -38,7 +38,6 @@ export default defineComponent({
     const state = reactive({
       active: 0
     });
-
     return {
       state
     };
@@ -46,6 +45,7 @@ export default defineComponent({
 });
 </script>
 <style lang="scss">
+@import "@assets/style/mixin.scss";
 .home {
   display: flex;
   flex-direction: column;
@@ -60,6 +60,8 @@ export default defineComponent({
       display: flex;
       justify-content: space-between;
       padding: 0 24px 0 16px;
+      @include all-border-1px(#eeeeee, 0);
+
       .user-avatar {
         width: 80px;
         & > img {

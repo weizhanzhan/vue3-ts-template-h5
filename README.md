@@ -7,7 +7,7 @@
 - [Vant配置](#vant配置)
 - [浏览器样式重置](#浏览器样式重置)
 - [移动端1px边框](#移动端1px边框)
-- [Vue3.0中Vuex的配置与使用](#Vue3.0中Vuex的配置与使用)
+- [Vue3.0中Vuex的配置与使用](#vuex的配置与使用)
 - [tsconfig配置](#tsconfig配置)
 - [语法检测自动格式代码](#语法检测自动格式代码)
 - [发布&部署](#发布&部署)
@@ -292,7 +292,8 @@ table {
 }
 ```
 
-## Vue3.0中Vuex的配置与使用
+## vuex的配置与使用
+
 ```js
 import { toRefs, reactive } from "vue";
 import { useStore } from "vuex";

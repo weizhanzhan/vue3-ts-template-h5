@@ -5,9 +5,10 @@
 ## 目录
 - [基础搭建](#基础搭建)
 - [Vant配置](#vant配置)
+- [新颖的CompositionApi](#CompositionApi)
 - [浏览器样式重置](#浏览器样式重置)
 - [移动端1px边框](#移动端1px边框)
-- [Vue3.0中Vuex的配置与使用](#vuex的配置与使用)
+- [Vue3.0中Vuex的配置与使用以及替代方案](#vuex的配置与使用)
 - [tsconfig配置](#tsconfig配置)
 - [语法检测自动格式代码](#语法检测自动格式代码)
 - [发布&部署](#发布&部署)
@@ -152,6 +153,16 @@ createApp(App)
 
 ```
 
+## CompositionApi
+
+### 响应式系统API
+
+#### reactive
+
+###3
+
+
+helo
 ## 浏览器样式重置
 
 重置浏览器标签的样式表,因为浏览器的品种很多，每个浏览器的默认样式也是不同的，比如button标签，在IE浏览器、Firefox浏览器以及Safari浏览器中的样式都是不同的，所以，通过重置button标签的CSS属性，然后再将它统一定义，就可以产生相同的显示效果。开始一个项目前，先创建一个reset.css，可以规避很多浏览器差异问题
@@ -293,7 +304,7 @@ table {
 ```
 
 ## vuex的配置与使用
-
+- Vuex
 ```js
 import { toRefs, reactive } from "vue";
 import { useStore } from "vuex";
@@ -313,6 +324,50 @@ export default {
   }
 };
 ```
+
+- 替代方案 provide、inject 
+> 声明一次，全局可访问,将需要共享的数据事先在 Vue 的根节点 App.vue 中通过 provide 声明。
+首先建立一个store
+```ts
+// src/store/store.ts
+const planList = Symbol()
+export default {
+  planList,
+}
+```
+在外层组件注入，比如 App.vue 中 provide
+```ts
+// src/App.vue
+<script lang="ts">
+import Store from "./store/store"
+
+import { defineComponent, provide, ref } from "@vue/composition-api"
+export default defineComponent({
+  setup() {
+    provide(Store.planList, ref([]))
+  }
+})
+</script>
+```
+在需要的组件内inject接受
+```ts
+// src/views/Plan.vue
+<script lang="ts">
+import Store from "./store/store"
+
+import { defineComponent, provide, ref } from "@vue/composition-api"
+export default defineComponent({
+  setup() {
+    const planList = inject(Store.planList)
+    return {
+      planList
+    }
+  }
+})
+</script>
+
+```
+
 ## tsconfig配置
 把compileOnSave和sourceMap 设置成false，如果为true的话，在保存ts文件的时候会自动生成js和map文件
 ```json

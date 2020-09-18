@@ -1,5 +1,6 @@
 <template>
-  <div class="hello">
+  <div class="hello" style="margin-top:20px">
+    我是子组件计数器：
     <button @click="addClick">{{ state.count }}</button>
   </div>
 </template>

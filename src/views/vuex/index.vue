@@ -8,12 +8,17 @@
       <van-button type="primary" @click="increase">increase</van-button>
       <van-button type="warning" @click="decrease">increase</van-button>
     </div>
+    <ChildComponent />
   </app-container>
 </template>
 <script lang="ts">
 import { defineComponent, reactive, toRefs, computed } from "vue";
 import { useStore } from "vuex";
+import ChildComponent from "@/components/HelloWorld.vue";
 export default defineComponent({
+  components: {
+    ChildComponent
+  },
   setup() {
     const store = useStore();
     const state = reactive({

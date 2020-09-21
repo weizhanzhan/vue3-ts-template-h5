@@ -19,6 +19,17 @@ module.exports = {
   parallel: false,
   css: {
     loaderOptions: {
+      less: {
+        lessOptions: {
+          modifyVars: {
+            // 直接覆盖变量
+            "text-color": "#111",
+            "border-color": "#eee",
+            // 或者可以通过 less 文件覆盖（文件路径为绝对路径）
+            hack: `true; @import "./src/theme/var.less";`
+          }
+        }
+      },
       postcss: {
         plugins: [
           autoprefixer(),
@@ -50,7 +61,8 @@ module.exports = {
               tsImportPluginFactory({
                 libraryName: "vant",
                 libraryDirectory: "es",
-                style: true
+                style: name => `${name}/style/less`
+                // style: true
               })
             ]
           }),

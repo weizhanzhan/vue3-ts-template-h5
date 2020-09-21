@@ -35,6 +35,12 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/vuex",
     component: import(/* webpackChunkName: "vuex" */ "../views/vuex/index.vue")
+  },
+  {
+    path: "/message",
+    component: import(
+      /* webpackChunkName: "message" */ "../views/message/index.vue"
+    )
   }
 ];
 

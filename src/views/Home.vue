@@ -2,24 +2,24 @@
   <div class="home">
     <div class="user-head">
       <div class="user-avatar">
-        <img src="@assets/images/avatar.jpg" alt="" />
+        <img src="@assets/images/vue3.png" alt="" />
       </div>
       <div class="user-info">
-        <div class="hello">Good morning!</div>
         <div class="name">{{ user.name }}</div>
+        <div class="hello">vue3.0 ts h5 with vant</div>
       </div>
       <div class="message">
-        <div class="message-box">
+        <div class="message-box" @click="toMessage">
           <van-icon
             name="smile-comment-o"
             size="30"
             badge="9"
-            color="#1989fa"
+            color="#4fc08d"
           />
         </div>
       </div>
     </div>
-    <div class="divider-line"></div>
+    <!-- <div class="divider-line"></div> -->
     <div class="menu">
       <div class="list">
         <div
@@ -29,12 +29,13 @@
           @click="toDetail(item.path)"
         >
           <div>
-            <img
+            <van-icon :name="item.icon" size="30" color="#4fc08d" />
+            <!-- <img
               class="menu-img"
-              src="@assets/images/vue.png"
+              src="@assets/images/vue3.png"
               alt=""
               srcset=""
-            />
+            /> -->
           </div>
           <div class="intro">
             <div class="title">{{ item.title }}</div>
@@ -60,12 +61,14 @@ export default defineComponent({
       {
         title: "VUEX",
         path: "/vuex",
+        icon: "cluster-o",
         sub:
           " Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式! <br>😄点击我查看Vue3.0中Vuex的操作吧"
       },
       {
         title: "Composition Api",
         path: "/vuex",
+        icon: "hot-o",
         sub:
           " 下一个主要版本的Vue中讨论的最常见的就是Composition AP的特色语法的。 这是一种全新的逻辑重用和代码组织方法"
       }
@@ -75,10 +78,14 @@ export default defineComponent({
     const toDetail = (path: string) => {
       router.push(path);
     };
+    const toMessage = () => {
+      router.push("/message");
+    };
     return {
       ...toRefs(state),
       menus,
-      toDetail
+      toDetail,
+      toMessage
     };
   }
 });
@@ -107,9 +114,9 @@ export default defineComponent({
       padding: 12px;
       .hello {
         color: #bfbfbf;
+        margin-top: 8px;
       }
       .name {
-        margin-top: 8px;
         font-size: 24px;
       }
     }

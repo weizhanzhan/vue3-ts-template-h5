@@ -159,6 +159,11 @@ createApp(App)
 
 #### reactive
 
+### 其他
+
+#### getCurrentInstance
+我觉得使用CompositionApi的时候，不能直接使用this获取vue实例是有点烦的，但任何文件内都可以通过getCurrentInstance获取vue实例是最爽的
+
 ###3
 
 

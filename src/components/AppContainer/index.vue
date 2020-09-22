@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="appbar">
+    <div class="appbar" v-if="appbar">
       <van-nav-bar
         :title="title"
         left-text="返回"
@@ -21,6 +21,10 @@ import { useRouter } from "vue-router";
 export default defineComponent({
   name: "AppContainer",
   props: {
+    appbar: {
+      type: Boolean,
+      default: true
+    },
     title: {
       type: String,
       default: ""

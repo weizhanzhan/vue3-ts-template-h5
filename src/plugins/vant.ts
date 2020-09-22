@@ -1,7 +1,27 @@
 import { App as VM } from "vue";
-import { Button, List, Cell, Tabbar, TabbarItem, Icon, NavBar } from "vant";
+import {
+  Button,
+  List,
+  Cell,
+  Tabbar,
+  TabbarItem,
+  Icon,
+  NavBar,
+  Field,
+  ActionSheet
+} from "vant";
 
-const plugins = [Button, List, Cell, Tabbar, TabbarItem, Icon, NavBar];
+const plugins = [
+  Button,
+  List,
+  Cell,
+  Tabbar,
+  TabbarItem,
+  Icon,
+  NavBar,
+  Field,
+  ActionSheet
+];
 
 export const vantPlugins = {
   install: function(vm: VM) {

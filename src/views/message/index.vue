@@ -41,34 +41,40 @@
   </app-container>
 </template>
 <script lang="ts">
-import { BmobMessageOption, BmobMessage } from "@/entity/bmob";
-import { defineComponent, onMounted, reactive, ref, toRefs } from "vue";
+import { BmobMessageOption, BmobMessage } from "@/entities/bmob";
+import { defineComponent, onMounted, reactive, toRefs } from "vue";
 import { useRouter } from "vue-router";
 
 export default defineComponent({
   setup() {
     const router = useRouter();
-    const stateObj: { messages: BmobMessageOption[] } = { messages: [] };
+    const stateObj: { messages: BmobMessageOption[]; sheetShow: boolean } = {
+      messages: [],
+      sheetShow: false
+    };
     const state = reactive(stateObj);
-    const sheetShow = ref(false);
 
     const form = new BmobMessage(reactive({ name: "", content: "" }));
 
     const toBack = () => {
-      console.log(router);
       router.back();
     };
+    const getMessages = async () => {
+      const messages = await BmobMessage.findAll();
+      state.messages = messages;
+    };
     const submit = () => {
-      form.create();
+      form.create().then(() => {
+        state.sheetShow = false;
+        getMessages();
+      });
     };
 
-    onMounted(async () => {
-      const messages: BmobMessageOption[] = await BmobMessage.findAll();
-      state.messages = messages;
+    onMounted(() => {
+      getMessages();
     });
     return {
       ...toRefs(state),
-      sheetShow,
       toBack,
       form,
       submit

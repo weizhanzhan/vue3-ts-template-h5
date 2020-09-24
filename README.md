@@ -2,6 +2,7 @@
 
 ## Vue3.0 + Typescript 初体验，打造h5,webapp移动端模板，开箱即用
 
+[demo浏览](https://vue3-ts-template-h5.vercel.app)
 ## 目录
 - [基础搭建](#基础搭建)
 - [Vant配置](#vant配置)
@@ -9,6 +10,7 @@
 - [浏览器样式重置](#浏览器样式重置)
 - [移动端1px边框](#移动端1px边框)
 - [Vue3.0中Vuex的配置与使用以及替代方案](#vuex的配置与使用)
+- [Vue3.0路由配置和缓存](#Vue3.0路由配置和缓存)
 - [tsconfig配置](#tsconfig配置)
 - [语法检测自动格式代码](#语法检测自动格式代码)
 - [发布&部署](#发布&部署)
@@ -371,6 +373,16 @@ export default defineComponent({
 })
 </script>
 
+```
+## Vue3.0路由配置和缓存
+- keep-alive写法改变
+```html
+
+ <router-view v-slot="{ Component }">
+  <keep-alive>
+    <component :is="Component" />
+  </keep-alive>
+</router-view>
 ```
 
 ## tsconfig配置

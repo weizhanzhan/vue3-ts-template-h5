@@ -1,4 +1,5 @@
 import Bmob from "hydrogen-js-sdk";
+import { getCurrentInstance } from "vue";
 
 export interface BmobMessageOption {
   objectId?: string;
@@ -16,6 +17,7 @@ export class BmobMessage {
 
   create = () => {
     this.loading = true;
+    console.log(getCurrentInstance());
     return new Promise<BmobMessageOption[]>((resolve, reject) => {
       const query = Bmob.Query("message");
       query.set("name", this.content.name);

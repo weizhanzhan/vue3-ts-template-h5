@@ -18,6 +18,8 @@
         />
       </p>
     </div>
+    {{ input }}
+    <input type="text" v-model="input" />
     <van-action-sheet v-model:show="sheetShow" title="Message">
       <div class="content">
         <van-field
@@ -42,21 +44,35 @@
 </template>
 <script lang="ts">
 import { BmobMessageOption, BmobMessage } from "@/entities/bmob";
-import { defineComponent, onMounted, reactive, toRefs } from "vue";
+import {
+  defineComponent,
+  getCurrentInstance,
+  onMounted,
+  reactive,
+  toRefs
+} from "vue";
 import { useRouter } from "vue-router";
 
 export default defineComponent({
   setup() {
+    const instance = getCurrentInstance();
+
     const router = useRouter();
-    const stateObj: { messages: BmobMessageOption[]; sheetShow: boolean } = {
+    const stateObj: {
+      messages: BmobMessageOption[];
+      sheetShow: boolean;
+      input: string;
+    } = {
       messages: [],
-      sheetShow: false
+      sheetShow: false,
+      input: ""
     };
     const state = reactive(stateObj);
 
     const form = new BmobMessage(reactive({ name: "", content: "" }));
 
     const toBack = () => {
+      console.log(instance);
       router.back();
     };
     const getMessages = async () => {
@@ -76,6 +92,7 @@ export default defineComponent({
     return {
       ...toRefs(state),
       toBack,
+
       form,
       submit
     };

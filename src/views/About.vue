@@ -1,14 +1,21 @@
 <template>
   <div class="about">
     <h1>You can leave me a message on the home page</h1>
+    {{ input }}
+    <input type="text" v-model="input" />
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
-
+import { defineComponent, ref } from "vue";
+import axios from "axios";
 export default defineComponent({
+  name: "About",
   setup() {
-    return {};
+    axios.get("https://jsonplaceholder.typicode.com/todos/1").then(res => {
+      console.log(res);
+    });
+    const input = ref("");
+    return { input };
   }
 });
 </script>

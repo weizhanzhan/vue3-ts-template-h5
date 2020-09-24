@@ -51,6 +51,7 @@ import { defineComponent, reactive, toRefs } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 export default defineComponent({
+  name: "Home",
   setup() {
     const router = useRouter();
     const state = reactive({

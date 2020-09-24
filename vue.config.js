@@ -19,6 +19,7 @@ module.exports = {
   parallel: false,
   css: {
     loaderOptions: {
+      //配置less主题
       less: {
         lessOptions: {
           modifyVars: {
@@ -30,6 +31,7 @@ module.exports = {
           }
         }
       },
+      //配置路vw vm适配
       postcss: {
         plugins: [
           autoprefixer(),
@@ -40,6 +42,7 @@ module.exports = {
       }
     }
   },
+  //配置路径别名
   configureWebpack: {
     resolve: {
       alias: {

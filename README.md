@@ -5,12 +5,14 @@
 [demo浏览](https://vue3-ts-template-h5.vercel.app)
 ## 目录
 - [基础搭建](#基础搭建)
-- [Vant配置](#vant配置)
+- [Vue3.0新特性与改动](#vue3的新特性和改动)
 - [新颖的CompositionApi](#CompositionApi)
+- [Vant配置](#vant配置)
+- [Vant主题修改](#vant主题色)
 - [浏览器样式重置](#浏览器样式重置)
 - [移动端1px边框](#移动端1px边框)
 - [Vue3.0中Vuex的配置与使用以及替代方案](#vuex的配置与使用)
-- [Vue3.0路由配置和缓存](#Vue3.0路由配置和缓存)
+- [Vue3.0路由配置和缓存](#vue路由配置和缓存)
 - [tsconfig配置](#tsconfig配置)
 - [语法检测自动格式代码](#语法检测自动格式代码)
 - [发布&部署](#发布&部署)
@@ -42,7 +44,21 @@ vue add typescript
 >8. Pick a linter / formatter config: **Prettier**
 >9. Pick additional lint features: **Lint on save**
 >10. Where do you prefer placing config for Babel, ESLint, etc.? (Use arrow keys) **In dedicated config files**
-  
+
+
+## vue3的新特性和改动
+整理中...（敬请期待😄）
+
+## CompositionApi
+整理中...（敬请期待😄）
+### 响应式系统API
+
+#### reactive
+
+### 其他
+
+#### getCurrentInstance
+在setup中，是没有办法通过this获取到vue，我们可以通过getCurrentInstance获取vue实例
 
 
 
@@ -155,21 +171,96 @@ createApp(App)
 
 ```
 
-## CompositionApi
+## vant主题色
 
-### 响应式系统API
+- 样式变量
+[官方配置文件](https://github.com/youzan/vant/blob/dev/src/style/var.less)
+```less
+//详见/src/theme/var.less
+// Color Palette
+@black: #000;
+@white: #fff;
+@gray-1: #f7f8fa;
+@gray-2: #f2f3f5;
+@gray-3: #ebedf0;
+@gray-4: #dcdee0;
+@gray-5: #c8c9cc;
+@gray-6: #969799;
+@gray-7: #646566;
+@gray-8: #323233;
+@red: #ee0a24;
+@blue: #1989fa;
+@orange: #ff976a;
+@orange-dark: #ed6a0c;
+@orange-light: #fffbe8;
+@green: #07c160;
+@green1:#4fc08d;
+// Gradient Colors
+@gradient-red: linear-gradient(to right, #ff6034, #ee0a24);
+@gradient-orange: linear-gradient(to right, #ffd01e, #ff8917);
 
-#### reactive
+// Component C
+```
+- 1.引入样式文件
+新增上述文件，并引入，由于上面vant配置中已经引入了，我们要调整一下指定样式的路径
+```js
+//vue.config.js
+module.exports = {
+   chainWebpack: config => {
+    config.module
+      .rule("ts")
+      .use("ts-loader")
+      .tap(options => {
+        options = merge(options, {
+          transpileOnly: true,
+          getCustomTransformers: () => ({
+            before: [
+              tsImportPluginFactory({
+                libraryName: "vant",
+                libraryDirectory: "es",
+                // --> 指定样式的路径
+                style: name => `${name}/style/less`
+              })
+            ]
+          }),
+          compilerOptions: {
+            module: "es2015"
+          }
+        });
+        return options;
+      });
+  }
+};
 
-### 其他
+```
 
-#### getCurrentInstance
-我觉得使用CompositionApi的时候，不能直接使用this获取vue实例是有点烦的，但任何文件内都可以通过getCurrentInstance获取vue实例是最爽的
+- 2.修改样式变量
+```js
+//vue.config.js
+module.exports = {
+  ...
+  css: {
+    loaderOptions: {
+      //配置less主题
+      less: {
+        lessOptions: {
+          modifyVars: {
+            // 直接覆盖变量
+            "text-color": "#111",
+            "border-color": "#eee",
+            // 或者可以通过 less 文件覆盖（文件路径为绝对路径）
+            hack: `true; @import "./src/theme/var.less";`
+          }
+        }
+      },
+    }
+  }
+}
 
-###3
+
+```
 
 
-helo
 ## 浏览器样式重置
 
 重置浏览器标签的样式表,因为浏览器的品种很多，每个浏览器的默认样式也是不同的，比如button标签，在IE浏览器、Firefox浏览器以及Safari浏览器中的样式都是不同的，所以，通过重置button标签的CSS属性，然后再将它统一定义，就可以产生相同的显示效果。开始一个项目前，先创建一个reset.css，可以规避很多浏览器差异问题
@@ -374,7 +465,7 @@ export default defineComponent({
 </script>
 
 ```
-## Vue3.0路由配置和缓存
+## vue路由配置和缓存
 - keep-alive写法改变
 ```html
 

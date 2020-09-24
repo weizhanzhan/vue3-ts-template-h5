@@ -1,5 +1,5 @@
 # vue3-ts-template-h5
-
+![vue3](https://github.com/weizhanzhan/vue3-ts-template-h5/blob/master/src/assets/images/vue3.png)
 ## Vue3.0 + Typescript 初体验，打造h5,webapp移动端模板，开箱即用
 
 [demo浏览](https://vue3-ts-template-h5.vercel.app)
@@ -47,6 +47,8 @@ vue add typescript
 
 
 ## vue3的新特性和改动
+
+- v-model
 整理中...（敬请期待😄）
 
 ## CompositionApi

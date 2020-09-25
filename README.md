@@ -46,9 +46,89 @@ vue add typescript
 >10. Where do you prefer placing config for Babel, ESLint, etc.? (Use arrow keys) **In dedicated config files**
 
 
-## vue3的新特性和改动
+# vue3的新特性和改动
 
-- v-model
+## 1.v-model
+### 2.x语法
+在 2.x 中，在组件上使用 v-model 相当于绑定 `value` prop 和 `input` 事件：
+```html
+<child-component v-model="title" />
+<!-- 语法糖 默认mode prop:value  event:input-->
+<child-component :value="title" @input="title = $event"/>
+```
+使用`v-bind:sync`
+vue是单向数据流，为了对prop进行"双向绑定",可以是用sync来实现
+```html
+<child-component :title.sync="title" />
+<!-- 语法糖 -->
+<child-component :title="title" @update:title="title = $event"/>
+```
+子组件内通过下面方式通知父父组件
+```js
+this.$emit('update:title',value)
+```
+### 3.x语法
+在3.x中自定义组件的`v-model`，是传递了`modelValue`prop并接受抛出的`update:modelValue`事件,和sync很像
+```html
+<child-component v-model="title" />
+<!-- 语法糖 -->
+<child-component :modelValue="title" @update:modelValue="title = $event"/>
+```
+`v-model`参数
+若需要更改 `model` 名称，而不是更改组件内的 `model` 选项,而是将一个 `argument` 传递给 `model`
+```html
+<child-component v-model:title="pageTitle" />
+<!-- 简写: -->
+<child-component :title="title" @update:title="title = $event" />
+```
+因此我们直接可以2.x的sync改成现在这种写法
+```html
+<child-component :title.sync="title" />
+<!-- 替换为 -->
+<child-component v-model:title="title" />
+```
+并且一个子组件我们可以写多个v-model
+```html
+<child-component v-model:title="pageTitle" v-model:content="content"/>
+```
+
+## v-for
+v-for的变动最主要体现在`key`上面，我们在使用`<template v-for>`的时候，2.x语法的key值不可以加在`template`标签上面,要加到子节点上,而在3.x中则可以加到`template`上,并且不需要在子节点上添加`key`
+```html
+<!-- Vue 2.x -->
+<template v-for="item in list">
+  <div :key="item.id">...</div>
+  <span :key="item.id">...</span>
+</template>
+
+<!-- Vue 3.x -->
+<template v-for="item in list" :key="item.id">
+  <div>...</div>
+  <span>...</span>
+</template>
+```
+## ref
+在2.0中，在`v-for`中绑定ref,我们通过`$ref`，获取的是一个ref数组，在3.x中则不会自动创建数组，我们需要绑定一个函数，自己处理并接受它
+```html
+<div v-for="item in list" :ref="setItemRef"></div>
+```
+
+```js
+export default {
+  setup() {
+    //itemRefs 不必是数组：它也可以是一个对象，其 ref 会通过迭代的 key 被设置。
+    let itemRefs = []
+    const setItemRef = el => {
+      itemRefs.push(el)
+    }
+    return {
+      itemRefs,
+      setItemRef
+    }
+  }
+}
+
+```
 整理中...（敬请期待😄）
 
 ## CompositionApi

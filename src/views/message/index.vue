@@ -6,20 +6,39 @@
         <van-icon name="arrow-left" size="20" />
       </div>
       <div class="action fr" @click="sheetShow = true">
-        <van-icon name="comment-circle-o" size="20" />
+        <i class="iconfont iconcamera" style="font-size:20px"></i>
+      </div>
+      <div class="info">
+        <div class="info-box">
+          <img src="@assets/images/avatar.jpg" alt="" srcset="" />
+          <div class="name">Zhanwei</div>
+        </div>
       </div>
     </div>
-    <div>
-      <p v-for="item in messages" :key="item.objectId">
-        <van-cell
+    <div class="messages">
+      <div v-for="item in messages" :key="item.objectId" class="message-item">
+        <div class="message-item-box">
+          <div class="user">
+            <img src="@assets/images/avatar.jpg" alt="" />
+          </div>
+          <div class="msg-container">
+            <div class="name">{{ item.name }}</div>
+            <div class="content">
+              {{ item.content }}
+            </div>
+            <div class="date">
+              {{ item.createdAt }}
+            </div>
+          </div>
+        </div>
+        <!-- <van-cell
           :title="item.name"
           :value="item.createdAt"
           :label="item.content"
-        />
-      </p>
+        /> -->
+      </div>
     </div>
-    {{ input }}
-    <input type="text" v-model="input" />
+
     <van-action-sheet v-model:show="sheetShow" title="Message">
       <div class="content">
         <van-field
@@ -100,8 +119,10 @@ export default defineComponent({
 });
 </script>
 <style lang="less" scoped>
+@import "@/theme/hairline";
 .header {
   position: relative;
+  padding-bottom: 50px;
   .action {
     position: absolute;
     color: #ffffff;
@@ -115,6 +136,71 @@ export default defineComponent({
   }
   img {
     width: 100%;
+  }
+  .info {
+    position: absolute;
+    width: 100%;
+    height: 80px;
+    bottom: 0;
+    z-index: 1;
+    .info-box {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      img {
+        position: absolute;
+        height: 70px;
+        width: 70px;
+        right: 12px;
+        bottom: 30px;
+        border-radius: 10px;
+      }
+      .name {
+        position: absolute;
+        right: 92px;
+        bottom: 60px;
+        color: #ffffff;
+        font-weight: bold;
+      }
+    }
+  }
+}
+.messages {
+  .message-item {
+    width: 100%;
+    position: relative;
+    box-sizing: border-box;
+    padding: 12px 16px;
+    .message-item-box {
+      display: flex;
+      .user {
+        flex: 0 0 40px;
+
+        img {
+          height: 35px;
+          width: 35px;
+          border-radius: 6px;
+        }
+      }
+      .msg-container {
+        flex: 1;
+        padding-left: 4px;
+        .name {
+          color: #003a8c;
+        }
+        .content {
+          padding: 10px 0;
+        }
+        .date {
+          color: #bfbfbf;
+        }
+      }
+    }
+  }
+  .message-item + .message-item {
+    &::after {
+      .hairline-top(@border-color);
+    }
   }
 }
 </style>

@@ -9,18 +9,17 @@
 import { defineComponent, ref } from "vue";
 import axios from "axios";
 export default defineComponent({
-  name: "About",
+  name: "ABOUT",
   setup() {
     axios.get("https://jsonplaceholder.typicode.com/todos/1").then(res => {
       console.log(res);
     });
     const input = ref("");
     return { input };
+  },
+  activated() {
+    console.log("我被缓存了");
   }
 });
 </script>
-<style lang="less" scoped>
-.about {
-  // background: @green1;
-}
-</style>
+<style lang="less" scoped></style>

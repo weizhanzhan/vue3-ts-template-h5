@@ -30,12 +30,6 @@
         >
           <div>
             <van-icon :name="item.icon" size="30" color="#4fc08d" />
-            <!-- <img
-              class="menu-img"
-              src="@assets/images/vue3.png"
-              alt=""
-              srcset=""
-            /> -->
           </div>
           <div class="intro">
             <div class="title">{{ item.title }}</div>
@@ -51,7 +45,10 @@ import { defineComponent, reactive, toRefs } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 export default defineComponent({
-  name: "Home",
+  name: "HOME",
+  activated() {
+    console.log("缓存了？");
+  },
   setup() {
     const router = useRouter();
     const state = reactive({

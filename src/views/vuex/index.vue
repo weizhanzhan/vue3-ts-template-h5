@@ -16,6 +16,7 @@ import { defineComponent, reactive, toRefs, computed } from "vue";
 import { useStore } from "vuex";
 import ChildComponent from "@/components/HelloWorld.vue";
 export default defineComponent({
+  name: "VUEX",
   components: {
     ChildComponent
   },

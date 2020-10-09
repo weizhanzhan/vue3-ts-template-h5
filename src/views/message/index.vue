@@ -73,6 +73,7 @@ import {
 import { useRouter } from "vue-router";
 
 export default defineComponent({
+  name: "MESSAGE",
   setup() {
     const instance = getCurrentInstance();
 

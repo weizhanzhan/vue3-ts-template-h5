@@ -20,6 +20,7 @@ import { defineComponent, reactive, toRefs, watch } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 export default defineComponent({
+  name: "LAYOUT",
   setup() {
     const router = useRouter();
     const state = reactive({

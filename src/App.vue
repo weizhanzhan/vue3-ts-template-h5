@@ -1,6 +1,4 @@
 <template>
-  {{ includeRoutes }}
-
   <router-view v-slot="{ Component }">
     <keep-alive :include="includeRoutes">
       <component :is="Component" />

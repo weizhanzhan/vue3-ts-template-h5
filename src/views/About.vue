@@ -1,21 +1,40 @@
 <template>
   <div class="about">
-    <h1>You can leave me a message on the home page</h1>
-    {{ input }}
-    <input type="text" v-model="input" />
+    <!-- {{ todos }} -->
+    {{ loading }}
+    {{ state }}
+    <input type="button" value="刷新" @click="submit" />
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, reactive, ref } from "vue";
+import { useAsync } from "@/hooks/useAsync";
 import axios from "axios";
+
 export default defineComponent({
   name: "ABOUT",
   setup() {
-    axios.get("https://jsonplaceholder.typicode.com/todos/1").then(res => {
-      console.log(res);
+    const todos = ref([]);
+    const state = reactive({
+      a: {
+        b: {
+          c: 1
+        }
+      }
     });
-    const input = ref("");
-    return { input };
+
+    async function getTodos() {
+      todos.value = await axios.get(
+        "https://jsonplaceholder.typicode.com/todos/1"
+      );
+    }
+    const { loading, refresh } = useAsync(getTodos);
+
+    function submit() {
+      refresh();
+    }
+
+    return { loading, todos, submit, state };
   },
   activated() {
     console.log("我被缓存了");

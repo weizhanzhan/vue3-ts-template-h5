@@ -132,17 +132,74 @@ export default {
 整理中...（敬请期待😄）
 
 ## CompositionApi
-整理中...（敬请期待😄）
-### 响应式系统API
 
-#### reactive
+### VUE 3 COMPOSITION API CHEAT SHEET
+```html
+<template>
+  <div>
+    <p>Spaces Left: {{ spacesLeft }} out of {{ capacity }}</p>
+    <h2>Attending</h2>
+    <ul>
+      <li v-for="(name, index) in attending" :key="index">
+        {{ name }}
+      </li>
+    </ul>
+    <button @click="increaseCapacity()">Increase Capacity</button>
+  </div>
+</template> <script>
+// If using Vue 2 with Composition API plugin configured/ 在Vue2中使用 Composition API :  import { ref, computed } from "@vue/composition-api";
+import { ref, computed } from "vue";
+export default {
+  setup() {
+    //数据响应式 将数据包装在对象中以跟踪更改
+    const capacity = ref(4);
+    const attending = ref(["Tim", "Bob", "Joe"]);
+    //Computed属性
+    const spacesLeft = computed(() => {
+      //通过调用.value访问响应式引用的值
+      return capacity.value - attending.value.length;
+    });
+    // 定义方法
+    function increaseCapacity() {
+      //ref进行响应式的变量 需要修改变量的话则需要对其.value操作
+      capacity.value++;
+    }
+    // 使我们的模板可以访问这些对象和功能
+    return { capacity, attending, spacesLeft, increaseCapacity };
+  }
+};
+</script>
+
+```
+### 你也可以这样写
+```js
+import { reactive, computed, toRefs } from "vue";
+export default {
+  setup() {
+    //reactive接受一个对象并返回一个响应式对象
+    const event = reactive({
+      capacity: 4,
+      attending: ["Tim", "Bob", "Joe"],
+      spacesLeft: computed(() => { return event.capacity - event.attending.length; })
+    });
+    function increaseCapacity() {
+      // reactive返回的响应式对象不需要使用.value操作
+      event.capacity++;
+    }
+    //...toRefs 解构event中的对象，使模板中直接可以使用capacity或者attending，不需要event.attending
+    return { ...toRefs(event), increaseCapacity };
+  }
+};
+
+```
+
+整理中...（敬请期待😄）
+
 
 ### 其他
 
 #### getCurrentInstance
 在setup中，是没有办法通过this获取到vue，我们可以通过getCurrentInstance获取vue实例
-
-
 
 ## Vant配置
 - 安装

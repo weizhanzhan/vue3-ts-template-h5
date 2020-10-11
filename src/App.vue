@@ -19,12 +19,12 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import url("https://fonts.font.im/css?family=PT+Sans");
+/* @import url("https://fonts.font.im/css?family=PT+Sans"); */
 * {
   padding: 0;
   margin: 0;
 }
 body {
-  font-family: "PT Sans", sans-serif !important;
+  /* font-family: "PT Sans", sans-serif !important; */
 }
 </style>

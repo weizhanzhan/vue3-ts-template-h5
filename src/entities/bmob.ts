@@ -1,27 +1,29 @@
 import Bmob from "hydrogen-js-sdk";
-import { getCurrentInstance } from "vue";
 
 export interface BmobMessageOption {
   objectId?: string;
   name: string;
   createdAt?: string;
   content: string;
+  files?: Array<string>;
 }
 
 export class BmobMessage {
   content: BmobMessageOption;
   loading = false;
+  page = 0;
+  size = 1;
   constructor(content: BmobMessageOption) {
     this.content = content;
   }
 
   create = () => {
     this.loading = true;
-    console.log(getCurrentInstance());
     return new Promise<BmobMessageOption[]>((resolve, reject) => {
       const query = Bmob.Query("message");
       query.set("name", this.content.name);
       query.set("content", this.content.content);
+      query.add("files", this.content.files || []);
       query
         .save()
         .then(() => {
@@ -34,13 +36,21 @@ export class BmobMessage {
       this.loading = false;
     });
   };
-  static findAll() {
-    return new Promise<BmobMessageOption[]>(resolve => {
+  findAll() {
+    return new Promise<BmobMessageOption[]>((resolve, reject) => {
       const query = Bmob.Query("message");
-      query.find().then(res => {
-        const messages: BmobMessageOption[] = res as never;
-        resolve(messages);
-      });
+      query.limit(this.size);
+      query.skip(this.page * this.size);
+
+      query
+        .find()
+        .then(res => {
+          const messages: BmobMessageOption[] = res as never;
+          resolve(messages);
+        })
+        .catch(() => {
+          reject();
+        });
     });
   }
 }

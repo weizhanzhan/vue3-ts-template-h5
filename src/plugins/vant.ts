@@ -8,7 +8,8 @@ import {
   Icon,
   NavBar,
   Field,
-  ActionSheet
+  ActionSheet,
+  Uploader
 } from "vant";
 
 const plugins = [
@@ -20,7 +21,8 @@ const plugins = [
   Icon,
   NavBar,
   Field,
-  ActionSheet
+  ActionSheet,
+  Uploader
 ];
 
 export const vantPlugins = {

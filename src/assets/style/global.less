@@ -1,0 +1,39 @@
+.wx-flex{
+  display: flex;
+}
+.wx-flex-auto{
+  flex: 1;
+}
+.wx-flex-sb{
+  justify-content: space-between;
+}
+.wx-flex-column{
+  flex-direction: column;
+}
+
+.identicon {
+  padding: 5px;
+  background: #eee;
+  display: inline-block;
+}
+.identicon:after {
+  content: '';
+  clear: both;
+  display: block;
+}
+.identicon div {
+  float: left;
+  height: 5px;
+  background: #eee;
+  width: 5px;
+  float: left;
+}
+.identicon div:nth-child(5n + 1) {
+  clear: both;
+}
+.identicon div[data="1"] {
+  background: red;
+}
+.identicon div[data="0"] {
+  background: #eee !important;
+}

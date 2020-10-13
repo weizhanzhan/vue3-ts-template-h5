@@ -2,6 +2,17 @@
 ![vue3](https://github.com/weizhanzhan/vue3-ts-template-h5/blob/master/src/assets/images/vue3.png)
 ## Vue3.0 + Typescript 初体验，打造h5,webapp移动端模板，开箱即用
 
+📖 `Vue3.0` 相关文档：
+
+| 相关库名称 | 在线地址 🔗 |
+| --------- | ----- |
+| Vue3.0 官方文档 | [在线地址](https://v3.vuejs.org/) |
+| Vue3.0 中文文档 | [在线地址](https://v3.cn.vuejs.org/) [国内加速版](https://vue3js.cn/docs/zh/)|
+| Composition-API手册 | [在线地址](https://vue3js.cn/vue-composition-api/) |
+| Vue3.0 源码学习 | [在线地址](https://vue3js.cn/start/) |
+| Vue-Router 官方文档 | [在线地址](https://next.router.vuejs.org/) |
+| Vuex4.0（目前在 beta 阶段） | [Github](https://github.com/vuejs/vuex/tree/4.0) |
+
 [demo浏览](https://vue3-ts-template-h5.vercel.app)
 ## 目录
 - [基础搭建](#基础搭建)

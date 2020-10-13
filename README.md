@@ -6,12 +6,13 @@
 
 | 相关库名称 | 在线地址 🔗 |
 | --------- | ----- |
-| Vue3.0 官方文档 | [在线地址](https://v3.vuejs.org/) |
-| Vue3.0 中文文档 | [在线地址](https://v3.cn.vuejs.org/) [国内加速版](https://vue3js.cn/docs/zh/)|
-| Composition-API手册 | [在线地址](https://vue3js.cn/vue-composition-api/) |
-| Vue3.0 源码学习 | [在线地址](https://vue3js.cn/start/) |
-| Vue-Router 官方文档 | [在线地址](https://next.router.vuejs.org/) |
-| Vuex4.0（目前在 beta 阶段） | [Github](https://github.com/vuejs/vuex/tree/4.0) |
+| Vue3.0 官方文档 | <a href="https://v3.vuejs.org/" target="_blank">链接</a> |
+| Vue3.0 中文文档 | <a href="https://v3.cn.vuejs.org/" target="_blank">链接</a> <a href="https://vue3js.cn/docs/zh/" target="_blank">国内链接</a>|
+| Composition-API手册 | <a href="https://vue3js.cn/vue-composition-api/" target="_blank">链接</a> |
+| Vue3.0 源码学习 | <a href="https://vue3js.cn/start/" target="_blank">链接</a> |
+| Vue-Router 官方文档 | <a href="https://next.router.vuejs.org/" target="_blank">链接</a> |
+| Vuex4.0（目前在 beta 阶段） | <a href="https://github.com/vuejs/vuex/tree/4.0/" target="_blank">Github</a> |
+
 
 [demo浏览](https://vue3-ts-template-h5.vercel.app)
 ## 目录

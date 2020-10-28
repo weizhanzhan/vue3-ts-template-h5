@@ -8,6 +8,13 @@ export interface BmobMessageOption {
   files?: Array<string>;
 }
 
+export interface MessageStateOPtion {
+  messages: BmobMessageOption[];
+  sheetShow: boolean;
+  input: string;
+  loading: boolean;
+  finished: boolean;
+}
 export class BmobMessage {
   content: BmobMessageOption;
   loading = false;

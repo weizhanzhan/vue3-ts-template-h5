@@ -76,7 +76,7 @@
   </app-container>
 </template>
 <script lang="ts">
-import { BmobMessageOption, BmobMessage } from "@/entities/bmob";
+import { MessageStateOPtion, BmobMessage } from "@/entities/bmob";
 import { getBeforeNowCount, getRandomAvatar } from "@/utils/utils";
 import { defineComponent, onMounted, reactive, toRefs } from "vue";
 import { useRouter } from "vue-router";
@@ -84,15 +84,8 @@ import { useRouter } from "vue-router";
 export default defineComponent({
   name: "MESSAGE",
   setup() {
-    console.log(getBeforeNowCount("2020-10-09"));
     const router = useRouter();
-    const stateObj: {
-      messages: BmobMessageOption[];
-      sheetShow: boolean;
-      input: string;
-      loading: boolean;
-      finished: boolean;
-    } = {
+    const stateObj: MessageStateOPtion = {
       messages: [],
       sheetShow: false,
       input: "",
@@ -109,7 +102,6 @@ export default defineComponent({
       router.back();
     };
     const onLoad = async () => {
-      console.log("加载更多");
       try {
         form.page++;
         const messages = await form.findAll();

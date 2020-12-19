@@ -3,6 +3,7 @@
     <!-- {{ todos }} -->
     {{ loading }}
     {{ state }}
+    <input type="text" v-model="state.value" />
     <input type="button" value="刷新" @click="submit" />
   </div>
 </template>
@@ -16,6 +17,7 @@ export default defineComponent({
   setup() {
     const todos = ref([]);
     const state = reactive({
+      value: "",
       a: {
         b: {
           c: 1

@@ -66,6 +66,7 @@ export const useRandomName = () => {
 };
 
 export const getRandomAvatar = (identicon: HTMLElement) => {
+  if (identicon.children.length) return;
   const colors = ["#8473C6", "#DBBB9A", "#84BED4", "#6F99D2", "#9EDB90"];
   let data = [];
   for (let i = 0; i < 5; i++) {

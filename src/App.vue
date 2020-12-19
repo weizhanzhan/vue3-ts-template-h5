@@ -11,7 +11,7 @@ import { defineComponent, reactive, toRefs } from "vue";
 export default defineComponent({
   setup() {
     const state = reactive({
-      includeRoutes: ["/about", "about"]
+      includeRoutes: ["ABOUT"]
     });
     return { ...toRefs(state) };
   }
@@ -19,12 +19,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-/* @import url("https://fonts.font.im/css?family=PT+Sans"); */
 * {
   padding: 0;
   margin: 0;
-}
-body {
-  /* font-family: "PT Sans", sans-serif !important; */
 }
 </style>

@@ -1,6 +1,5 @@
 <template>
   <div class="about">
-    <!-- {{ todos }} -->
     {{ loading }}
     {{ state }}
     <input type="text" v-model="state.value" />

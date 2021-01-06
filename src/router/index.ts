@@ -1,4 +1,9 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import {
+  createRouter,
+  createWebHistory,
+  Router,
+  RouteRecordRaw
+} from "vue-router";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -46,5 +51,26 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 });
+
+// const routerPush = router.push;
+// router.push = function(to) {
+//   console.log("路由拦截push");
+//   return routerPush.call(this, to).catch(error => error);
+// };
+
+// router.back = function() {
+//   console.log("路由拦截back");
+//   return router.go(-1);
+// };
+
+function RouterStack(router: Router) {
+  // const stack = [];
+  router.afterEach((to, from) => {
+    console.log(to, from);
+  });
+  return router;
+}
+
+RouterStack(router);
 
 export default router;

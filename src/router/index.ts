@@ -28,6 +28,12 @@ const routes: Array<RouteRecordRaw> = [
     ]
   },
   {
+    path: "/shop",
+    name: "SHOP",
+    component: () =>
+      import(/* webpackChunkName: "SHOP" */ "../views/shop/index.vue")
+  },
+  {
     path: "/vuex",
     name: "VUEX",
     component: () =>

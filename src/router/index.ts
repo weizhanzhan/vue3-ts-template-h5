@@ -1,4 +1,9 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import {
+  createRouter,
+  createWebHistory,
+  Router,
+  RouteRecordRaw
+} from "vue-router";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -21,6 +26,12 @@ const routes: Array<RouteRecordRaw> = [
           import(/* webpackChunkName: "about" */ "../views/About.vue")
       }
     ]
+  },
+  {
+    path: "/shop",
+    name: "SHOP",
+    component: () =>
+      import(/* webpackChunkName: "SHOP" */ "../views/shop/index.vue")
   },
   {
     path: "/vuex",
@@ -46,5 +57,27 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 });
+
+// const routerPush = router.push;
+// router.push = function(to) {
+//   console.log("路由拦截push");
+//   return routerPush.call(this, to).catch(error => error);
+// };
+
+// router.back = function() {
+//   console.log("路由拦截back");
+//   return router.go(-1);
+// };
+import provideStore from "@/utils/provideStore";
+function RouterStack(router: Router) {
+  // const stack = [];
+  router.afterEach((to, from) => {
+    console.log(to, from);
+    console.log(provideStore.planList.value);
+  });
+  return router;
+}
+
+RouterStack(router);
 
 export default router;

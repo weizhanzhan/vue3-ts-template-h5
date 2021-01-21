@@ -1,13 +1,13 @@
 <template>
   <div class="about">
-    <!-- {{ todos }} -->
     {{ loading }}
     {{ state }}
+    <input type="text" v-model="state.value" />
     <input type="button" value="刷新" @click="submit" />
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, ref } from "vue";
+import { defineComponent, reactive, ref, inject } from "vue";
 import { useAsync } from "@/hooks/useAsync";
 import axios from "axios";
 
@@ -15,7 +15,11 @@ export default defineComponent({
   name: "ABOUT",
   setup() {
     const todos = ref([]);
+    const planList = inject("planList");
+
+    console.log(planList);
     const state = reactive({
+      value: "",
       a: {
         b: {
           c: 1

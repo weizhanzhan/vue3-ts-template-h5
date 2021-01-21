@@ -62,7 +62,6 @@ export default defineComponent({
     }
 
     function submit() {
-      console.log(state);
       const form = new BmobMessage({
         name: useRandomName(),
         content: state.message,

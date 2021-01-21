@@ -15,12 +15,14 @@
 import { defineComponent, reactive, toRefs, computed } from "vue";
 import { useStore } from "vuex";
 import ChildComponent from "@/components/HelloWorld.vue";
+import provideStore from "@/utils/provideStore";
 export default defineComponent({
   name: "VUEX",
   components: {
     ChildComponent
   },
   setup() {
+    console.log("vuex", provideStore.planList);
     const store = useStore();
     const state = reactive({
       count: computed(() => store.state.demo.count)

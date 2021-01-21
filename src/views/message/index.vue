@@ -206,6 +206,7 @@ export default defineComponent({
     position: relative;
     box-sizing: border-box;
     padding: 12px 16px;
+    word-break: break-word;
     .message-item-box {
       display: flex;
       .user {

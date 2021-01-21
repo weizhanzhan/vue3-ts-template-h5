@@ -7,7 +7,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, ref } from "vue";
+import { defineComponent, reactive, ref, inject } from "vue";
 import { useAsync } from "@/hooks/useAsync";
 import axios from "axios";
 
@@ -15,6 +15,9 @@ export default defineComponent({
   name: "ABOUT",
   setup() {
     const todos = ref([]);
+    const planList = inject("planList");
+
+    console.log(planList);
     const state = reactive({
       value: "",
       a: {

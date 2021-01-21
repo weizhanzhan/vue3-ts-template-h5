@@ -8,11 +8,9 @@ export default {
   state,
   mutations: {
     increase(state: DemoState) {
-      console.log(state);
       state.count++;
     },
     decrease(state: DemoState) {
-      console.log(state);
       state.count--;
     }
   }

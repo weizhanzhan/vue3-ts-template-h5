@@ -68,11 +68,12 @@ const router = createRouter({
 //   console.log("路由拦截back");
 //   return router.go(-1);
 // };
-
+import provideStore from "@/utils/provideStore";
 function RouterStack(router: Router) {
   // const stack = [];
   router.afterEach((to, from) => {
     console.log(to, from);
+    console.log(provideStore.planList.value);
   });
   return router;
 }

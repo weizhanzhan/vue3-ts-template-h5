@@ -41,19 +41,19 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from "vue";
+import { defineComponent, reactive, toRefs, inject } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 export default defineComponent({
   name: "HOME",
-  activated() {
-    console.log("缓存了？");
-  },
+
   setup() {
     const router = useRouter();
     const state = reactive({
       user: {}
     });
+    const planList = inject("planList");
+    console.log(planList);
 
     const menus = [
       {

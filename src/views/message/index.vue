@@ -28,7 +28,6 @@
               <div :id="item.objectId" class="identicon">
                 {{ setAvatar(item.objectId) }}
               </div>
-              <!-- <img src="@assets/images/avatar.jpg" alt="" /> -->
             </div>
             <div class="msg-container">
               <div class="name">{{ item.name }}</div>
@@ -40,12 +39,19 @@
                   </template>
                 </div>
               </div>
-              <div class="date">
-                {{
-                  item.name === "weizhanzhan"
-                    ? "最新"
-                    : getBeforeNowCount(item.createdAt)
-                }}
+              <div class="desc">
+                <div>
+                  {{
+                    item.name === "weizhanzhan"
+                      ? "最新"
+                      : getBeforeNowCount(item.createdAt)
+                  }}
+                </div>
+                <div>
+                  <div class="support">
+                    ·&nbsp;·
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -232,9 +238,17 @@ export default defineComponent({
             }
           }
         }
-        .date {
+        .desc {
           color: #bfbfbf;
           font-size: 14px;
+          display: flex;
+          justify-content: space-between;
+          .support {
+            background: #eeeeee;
+            color: #003a8c;
+            padding: 0 6px;
+            font-weight: 700;
+          }
         }
       }
     }

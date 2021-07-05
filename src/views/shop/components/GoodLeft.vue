@@ -1,6 +1,6 @@
 <template>
   <div class="menu">
-    <div class="wrapper">
+    <div class="wrapper" id="wrapper" ref="test">
       <ul class="content">
         <li class="good-item" v-for="item in goods" :key="item.name">
           {{ item.name }}
@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import BScroll from "better-scroll";
+import BScroll from "@better-scroll/core";
 
 import { defineComponent, reactive, onMounted } from "vue";
 
@@ -20,8 +20,13 @@ export default defineComponent({
   setup(props) {
     let bscroll = reactive({});
     onMounted(() => {
-      bscroll = new BScroll(".wrapper", {
-        movable: true
+      const wrapper = document.getElementById("wrapper") as HTMLElement;
+      console.log(wrapper);
+
+      bscroll = new BScroll(wrapper, {
+        // movable: true
+        probeType: 3,
+        click: true
       });
     });
     return {
@@ -36,12 +41,11 @@ export default defineComponent({
 .menu {
   .wrapper {
     position: relative;
-    width: 100%;
-    height: 100%;
     overflow: hidden;
     .good-item {
       padding: 10px;
-      background: #eeeeee;
+      height: 40px;
+      background: #ced4de;
     }
   }
 }

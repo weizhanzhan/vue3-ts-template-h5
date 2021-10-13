@@ -1,3 +1,4 @@
+# 此项目在vue3未正式发行写的，最新的依赖会导致运行不了，在准备调整，所以大家还是参考代码就好🙌😘
 # vue3-ts-template-h5
 ![vue3](https://github.com/weizhanzhan/vue3-ts-template-h5/blob/master/src/assets/images/vue3.png)
 ## Vue3.0 + Typescript 初体验，打造h5,webapp移动端模板，开箱即用

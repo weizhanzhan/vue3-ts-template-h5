@@ -1,6 +1,6 @@
 <template>
-  <div class="good-list">
-    <div class="header" :style="{ height: headerHeightAndContentTop + 'px' }">
+  <div class="good-list" :ref="bindContainertDom">
+    <div class="action-bar">
       <div class="action">
         <van-icon
           name="arrow-left"
@@ -29,18 +29,9 @@
         <div class="clear"></div>
       </div>
     </div>
-    <div
-      class="content"
-      :ref="bindDom"
-      :style="{ top: headerHeightAndContentTop + 'px' }"
-    >
+    <div class="header"></div>
+    <div class="content" :ref="bindContentDom">
       <p v-for="n in 20" :key="n">这是内容</p>
-      <!-- <div class="left">
-        <GoodLeft :good="good" />
-      </div>
-      <div class="right">
-        <GoodRight :good="good" />
-      </div> -->
     </div>
   </div>
 </template>
@@ -50,6 +41,7 @@ import { defineComponent, onMounted, ref } from "vue";
 import GoodLeft from "./GoodLeft.vue";
 import GoodRight from "./GoodRight.vue";
 const INIT_HEIGHT = 200;
+const MAX_TOP_SCROLL = 150;
 export default defineComponent({
   props: ["goods"],
   components: {
@@ -59,25 +51,38 @@ export default defineComponent({
     GoodRight
   },
   setup(props) {
+    let containerDom: HTMLElement | null = null;
+
     let contentElement: HTMLElement | null = null;
+
     const headerHeightAndContentTop = ref(INIT_HEIGHT);
-    const bindDom = (el: HTMLElement) => (contentElement = el);
-
+    const bindContainertDom = (el: HTMLElement) => (containerDom = el);
+    const bindContentDom = (el: HTMLElement) => (contentElement = el);
+    console.log(contentElement);
     const scroll = function() {
-      const top = contentElement?.scrollTop || 0;
-      const mintop = INIT_HEIGHT - (top > 150 ? 150 : top);
-      headerHeightAndContentTop.value = mintop;
+      const top = containerDom?.scrollTop || 0;
+      // const mintop =
+      //   INIT_HEIGHT - (top > MAX_TOP_SCROLL ? MAX_TOP_SCROLL : top);
+      // headerHeightAndContentTop.value = mintop;
+      console.log(top);
+      if (top > MAX_TOP_SCROLL && contentElement) {
+        console.log("超过了");
+        contentElement.style.position = "absolute";
+        contentElement.style.top = INIT_HEIGHT - MAX_TOP_SCROLL + "px";
 
-      console.log("出发？");
+        // containerDom.style.overflow = "hidden";
+      }
     };
 
     onMounted(() => {
-      contentElement && (contentElement.onscroll = scroll);
+      // contentElement && (contentElement.onscroll = scroll);
+      containerDom && (containerDom.onscroll = scroll);
     });
 
     return {
       good: props.goods,
-      bindDom,
+      bindContentDom,
+      bindContainertDom,
       headerHeightAndContentTop
     };
   }
@@ -89,13 +94,12 @@ export default defineComponent({
   position: relative;
   height: 100%;
   width: 100%;
-  .header {
-    position: absolute;
-    width: 100%;
-    font-size: 10vmin;
+  overflow: auto;
+  .action-bar {
+    position: fixed;
+    z-index: 1;
     top: 0;
-    background: url("../../../assets/images/shop-banner.jpg") no-repeat;
-    background-size: 100%;
+    width: 100%;
     .action {
       padding: 12px;
       .action-left {
@@ -112,11 +116,19 @@ export default defineComponent({
       }
     }
   }
-  .content {
-    position: absolute;
+  .header {
+    position: relative;
     width: 100%;
-    bottom: 0px;
-    overflow: auto;
+    height: 200px;
+    font-size: 10vmin;
+    // background: url("../../../assets/images/shop-banner.jpg") no-repeat;
+    // background-size: 100%;
+    background: #78d3f8;
+  }
+  .content {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
     p {
       padding: 12px;
       border-bottom: 1px solid gray;

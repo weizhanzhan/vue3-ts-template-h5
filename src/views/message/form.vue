@@ -34,6 +34,8 @@ import { useRandomName } from "@/utils/utils";
 import { Toast } from "vant";
 import { BmobMessage } from "@/entities/bmob";
 import router from "@/router";
+import { useStore } from "node_modules/_vuex@4.0.2@vuex/types";
+import { UserState } from "@/store/modules/user";
 const ImageTypes = ["image/jpeg", "image/jpg", "image/png"];
 export default defineComponent({
   components: { WxBar },
@@ -47,7 +49,7 @@ export default defineComponent({
     });
 
     const form = new BmobMessage(
-      reactive({ name: "", content: "", files: [] })
+      reactive({ name: "", content: "", files: [], state: false })
     );
 
     function beforeRead(file: File) {
@@ -62,9 +64,11 @@ export default defineComponent({
     }
 
     function submit() {
+      const store = useStore<{ user: UserState }>();
       const form = new BmobMessage({
-        name: useRandomName(),
+        name: store.state.user.loginUser || useRandomName(),
         content: state.message,
+        state: false,
         files: []
       });
       form.create().then(() => {

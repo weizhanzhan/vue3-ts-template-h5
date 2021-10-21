@@ -5,12 +5,12 @@ export interface BmobMessageOption {
   name: string;
   createdAt?: string;
   content: string;
+  state: false;
   files?: Array<string>;
 }
 
 export interface MessageStateOPtion {
   messages: BmobMessageOption[];
-  sheetShow: boolean;
   input: string;
   loading: boolean;
   finished: boolean;
@@ -26,7 +26,7 @@ export class BmobMessage {
 
   create = () => {
     this.loading = true;
-    return new Promise<BmobMessageOption[]>((resolve, reject) => {
+    return new Promise<BmobMessageOption[] | void>((resolve, reject) => {
       const query = Bmob.Query("message");
       query.set("name", this.content.name);
       query.set("content", this.content.content);
@@ -53,6 +53,9 @@ export class BmobMessage {
         .find()
         .then(res => {
           const messages: BmobMessageOption[] = res as never;
+          messages.forEach(item => {
+            item.state = false;
+          });
           resolve(messages);
         })
         .catch(() => {

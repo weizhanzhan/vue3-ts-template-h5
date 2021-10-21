@@ -42,8 +42,8 @@ export default defineComponent({
   }
 });
 </script>
-<style lang="scss" scoped>
-@import "@assets/style/mixin.scss";
+<style lang="less" scoped>
+// @import "@assets/style/mixin.scss";
 .title {
   padding: 10px;
   font-size: 18px;

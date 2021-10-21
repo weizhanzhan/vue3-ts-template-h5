@@ -47,10 +47,35 @@
                       : getBeforeNowCount(item.createdAt)
                   }}
                 </div>
+                <!-- 弹出层 操作 点赞 评论 -->
                 <div>
-                  <div class="support">
-                    ·&nbsp;·
-                  </div>
+                  <van-popover v-model:show="item.state" placement="left">
+                    <div class="popover-action">
+                      <div class="star" @click="toStar">
+                        <van-icon name="like-o" />&nbsp;赞
+                      </div>
+                      <div class="line">|</div>
+                      <div class="comment" @click="toComment">
+                        <van-icon
+                          name="smile-comment-o"
+                          size="16px"
+                        />&nbsp;评论
+                      </div>
+                    </div>
+                    <template #reference>
+                      <div class="support">
+                        <span>·&nbsp;·</span>
+                      </div>
+                    </template>
+                  </van-popover>
+                </div>
+              </div>
+              <div class="stars">
+                <span class="star-icon"
+                  ><van-icon name="like-o" size="12"
+                /></span>
+                <div class="star-item">
+                  weizhanzhan
                 </div>
               </div>
             </div>
@@ -58,27 +83,6 @@
         </div>
       </van-list>
     </div>
-
-    <van-action-sheet v-model:show="sheetShow" title="Message">
-      <div class="content">
-        <van-field
-          v-model="form.content.name"
-          label="username"
-          placeholder="username/email/mobile"
-        />
-        <van-field
-          v-model="form.content.content"
-          rows="2"
-          autosize
-          label="message"
-          type="textarea"
-          maxlength="50"
-          placeholder="please enter ..."
-          show-word-limit
-        />
-        <van-button type="primary" block @click="submit">Submit</van-button>
-      </div>
-    </van-action-sheet>
   </app-container>
 </template>
 <script lang="ts">
@@ -93,7 +97,6 @@ export default defineComponent({
     const router = useRouter();
     const stateObj: MessageStateOPtion = {
       messages: [],
-      sheetShow: false,
       input: "",
       loading: false,
       finished: false
@@ -101,7 +104,7 @@ export default defineComponent({
     const state = reactive(stateObj);
 
     const form = new BmobMessage(
-      reactive({ name: "", content: "", files: [] })
+      reactive({ name: "", content: "", files: [], state: false })
     );
 
     const toBack = () => {
@@ -124,18 +127,21 @@ export default defineComponent({
       const messages = await form.findAll();
       state.messages = messages;
     };
-    const submit = () => {
-      form.create().then(() => {
-        state.sheetShow = false;
-        getMessages();
-      });
-    };
+
+    // 留言
     const toSendMessage = () => {
       router.push("/form");
     };
+    // 头像
     const setAvatar = (id: string) => {
       const dom = document.getElementById(id);
       dom && getRandomAvatar(dom);
+    };
+    const toStar = () => {
+      console.log("点赞");
+    };
+    const toComment = () => {
+      console.log("评论");
     };
     onMounted(() => {
       getMessages();
@@ -145,10 +151,11 @@ export default defineComponent({
       toBack,
       toSendMessage,
       form,
-      submit,
       getBeforeNowCount,
       onLoad,
-      setAvatar
+      setAvatar,
+      toStar,
+      toComment
     };
   }
 });
@@ -245,10 +252,25 @@ export default defineComponent({
           display: flex;
           justify-content: space-between;
           .support {
-            background: #eeeeee;
+            background: #f5f5f5;
             color: #003a8c;
             padding: 0 6px;
             font-weight: 700;
+          }
+          .popover {
+            background: #000000;
+            color: #ffffff;
+          }
+        }
+        .stars {
+          background: #f5f5f5;
+          color: #003a8c;
+          margin-top: 12px;
+          border-radius: 2px;
+          padding: 4px 8px;
+          display: flex;
+          .star-icon {
+            margin-right: 8px;
           }
         }
       }

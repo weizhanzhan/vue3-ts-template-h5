@@ -50,8 +50,8 @@ export default defineComponent({
   }
 });
 </script>
-<style lang="scss">
-@import "@assets/style/mixin.scss";
+<style lang="less">
+// @import "@assets/style/mixin.scss";
 .container {
   display: flex;
   flex-direction: column;

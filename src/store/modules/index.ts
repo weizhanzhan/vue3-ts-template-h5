@@ -1,14 +1,17 @@
-const files = require.context(".", false, /\.ts$/);
-const modules: {
-  [key: string]: unknown;
-} = {};
-let Realmodule = {};
+// import { UserState } from "./user";
 
-files.keys().forEach(key => {
-  if (key === "./index.ts") return;
-  modules[key.replace(/(\.\/|\.ts)/g, "")] = files(key).default;
-});
+// const files = require.context(".", false, /\.ts$/);
+// const modules: {
+//   [key: string]: unknown;
+//   user: UserState;
+// } = {};
+// let Realmodule = {};
 
-Realmodule = Object.assign({}, modules);
+// files.keys().forEach(key => {
+//   if (key === "./index.ts") return;
+//   modules[key.replace(/(\.\/|\.ts)/g, "")] = files(key).default;
+// });
 
-export default Realmodule;
+// Realmodule = Object.assign({}, modules);
+
+// export default Realmodule;

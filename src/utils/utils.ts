@@ -93,6 +93,9 @@ export const getRandomAvatar = (identicon: HTMLElement) => {
 };
 
 export const getBeforeNowCount = (date: string) => {
+  date = date.replace(/-/g, "/");
+  // 苹果浏览器不支持replaceAll
+  // TODO 苹果浏览器统计的时间和安卓不一样，有人知道欢迎提PR😊
   const diffDate = Date.parse(date);
   const now = Date.parse(new Date().toString());
   let diffDay = Math.abs(diffDate - now);

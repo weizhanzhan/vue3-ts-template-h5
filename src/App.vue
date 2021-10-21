@@ -9,7 +9,7 @@ import { defineComponent } from "vue";
 export default defineComponent({});
 </script>
 
-<style lang="scss">
+<style>
 * {
   padding: 0;
   margin: 0;

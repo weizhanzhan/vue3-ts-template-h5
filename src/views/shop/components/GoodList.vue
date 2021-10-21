@@ -89,7 +89,7 @@ export default defineComponent({
 });
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 .good-list {
   position: relative;
   height: 100%;

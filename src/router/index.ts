@@ -1,9 +1,13 @@
+import { useRandomName } from "./../utils/utils";
+import provideStore from "@/utils/provideStore";
+
 import {
   createRouter,
   createWebHistory,
   Router,
   RouteRecordRaw
 } from "vue-router";
+import store from "../store";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -68,10 +72,14 @@ const router = createRouter({
 //   console.log("路由拦截back");
 //   return router.go(-1);
 // };
-import provideStore from "@/utils/provideStore";
 function RouterStack(router: Router) {
   // const stack = [];
   router.afterEach((to, from) => {
+    if (!store.state.user.loginUser) {
+      store.commit("setUserInfo", useRandomName());
+    }
+    console.log("store", store.state.user.loginUser);
+
     console.log(to, from);
     console.log(provideStore.planList.value);
   });

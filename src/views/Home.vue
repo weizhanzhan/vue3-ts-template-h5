@@ -100,8 +100,8 @@ export default defineComponent({
   }
 });
 </script>
-<style lang="scss" scoped>
-@import "@assets/style/mixin.scss";
+<style lang="less" scoped>
+@import "@/theme/hairline";
 .home {
   height: 100%;
 
@@ -142,7 +142,7 @@ export default defineComponent({
         border-radius: 10px;
         text-align: center;
         justify-content: center;
-        box-shadow: 1px 4px 25px rgba($color: #000000, $alpha: 0.15);
+        // box-shadow: 1px 4px 25px rgba($color: #000000, $alpha: 0.15);
       }
     }
   }
@@ -161,6 +161,7 @@ export default defineComponent({
       .item {
         display: flex;
         padding: 12px 0;
+        position: relative;
         width: 100%;
         min-height: 40px;
         .menu-img {
@@ -190,7 +191,9 @@ export default defineComponent({
         }
       }
       .item + .item {
-        @include border-1px(#eeeeee, top);
+        &::after {
+          .hairline-top(@border-color);
+        }
       }
     }
   }

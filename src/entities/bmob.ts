@@ -46,6 +46,7 @@ export class BmobMessage {
   findAll() {
     return new Promise<BmobMessageOption[]>((resolve, reject) => {
       const query = Bmob.Query("message");
+      query.order("-createdAt");
       query.limit(this.size);
       query.skip(this.page * this.size);
 

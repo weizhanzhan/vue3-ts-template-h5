@@ -33,9 +33,9 @@ import WxBar from "@/components/Navbar.vue";
 import { useRandomName } from "@/utils/utils";
 import { Toast } from "vant";
 import { BmobMessage } from "@/entities/bmob";
-import router from "@/router";
-import { useStore } from "node_modules/_vuex@4.0.2@vuex/types";
+import { useStore } from "vuex";
 import { UserState } from "@/store/modules/user";
+import { useRouter } from "vue-router";
 const ImageTypes = ["image/jpeg", "image/jpg", "image/png"];
 export default defineComponent({
   components: { WxBar },
@@ -47,6 +47,7 @@ export default defineComponent({
       message: "",
       fileList: []
     });
+    const router = useRouter();
 
     const form = new BmobMessage(
       reactive({ name: "", content: "", files: [], state: false })

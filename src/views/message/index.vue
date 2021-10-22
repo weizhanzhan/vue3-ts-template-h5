@@ -10,8 +10,8 @@
       </div>
       <div class="info">
         <div class="info-box">
-          <img src="@assets/images/avatar.jpg" alt="" srcset="" />
-          <div class="name">Zhanwei</div>
+          <img src="@assets/images/avatar1.jpg" alt="" srcset="" />
+          <div class="name">zhanzhan.wei</div>
         </div>
       </div>
     </div>
@@ -42,7 +42,7 @@
               <div class="desc">
                 <div>
                   {{
-                    item.name === "weizhanzhan"
+                    item.name === "zhanzhan.wei"
                       ? "最新"
                       : getBeforeNowCount(item.createdAt)
                   }}
@@ -70,12 +70,18 @@
                   </van-popover>
                 </div>
               </div>
-              <div class="stars">
+              <div class="stars" v-if="item.name === 'zhanzhan.wei'">
                 <span class="star-icon"
                   ><van-icon name="like-o" size="12"
                 /></span>
                 <div class="star-item">
-                  weizhanzhan
+                  zhanzhan.wei
+                </div>
+              </div>
+              <div class="comments" v-if="item.name === 'zhanzhan.wei'">
+                <div class="comment-item">
+                  <span class="comment-user">zhanzhan.wei:</span>
+                  欢迎大家,有想法和建议随时找我联系，可留言可加V
                 </div>
               </div>
             </div>
@@ -86,14 +92,19 @@
   </app-container>
 </template>
 <script lang="ts">
-import { MessageStateOPtion, BmobMessage } from "@/entities/bmob";
+import {
+  MessageStateOPtion,
+  BmobMessage,
+  BmobMessageOption
+} from "@/entities/bmob";
 import { getBeforeNowCount, getRandomAvatar } from "@/utils/utils";
 import { defineComponent, onMounted, reactive, toRefs } from "vue";
 import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: "MESSAGE",
-  setup() {
+  setup(prop, context) {
+    console.log("prop", context);
     const router = useRouter();
     const stateObj: MessageStateOPtion = {
       messages: [],
@@ -125,7 +136,25 @@ export default defineComponent({
     };
     const getMessages = async () => {
       const messages = await form.findAll();
-      state.messages = messages;
+      const init: BmobMessageOption = {
+        objectId: "1",
+        name: "zhanzhan.wei",
+        content:
+          "Hello everyone! 欢迎大家，请适当言论，喜欢记得给个star呀！(づ￣ 3￣)づ,扫描二维码加V，一起进交流群学习成长😊",
+        files: [
+          "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3831337348,1544176931&fm=26&gp=0.jpg",
+          "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=103133962,3138181394&fm=26&gp=0.jpg",
+          require("../../assets/images/1.jpg"),
+          require("../../assets/images/2.png"),
+          require("../../assets/images/qrcode.jpg"),
+          require("../../assets/images/3.png"),
+          require("../../assets/images/4.png"),
+          require("../../assets/images/5.png"),
+          require("../../assets/images/6.png")
+        ],
+        state: false
+      };
+      state.messages = [init, ...messages];
     };
 
     // 留言
@@ -271,6 +300,19 @@ export default defineComponent({
           display: flex;
           .star-icon {
             margin-right: 8px;
+          }
+        }
+        .comments {
+          background: #f5f5f5;
+          border-radius: 2px;
+          padding: 4px 8px;
+          position: relative;
+          font-size: 14px;
+          .comment-user {
+            color: #003a8c;
+          }
+          &::after {
+            .hairline-top(@border-color);
           }
         }
       }

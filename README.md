@@ -2,6 +2,9 @@
 >npm install typescript@4.5.3 --dev
 # vue3-ts-template-h5
 ![vue3](https://github.com/weizhanzhan/vue3-ts-template-h5/blob/master/src/assets/images/vue3.png)
+
+[访问一](https://www.weizhan.site)
+[访问二](https://vue3-ts-template-h5.vercel.app)
 ## Vue3.0 + Typescript 初体验，打造h5,webapp移动端模板，开箱即用
 
 📖 `Vue3.0` 相关文档：

@@ -591,6 +591,7 @@ table {
 
 ## vuex的配置与使用
 - Vuex
+>这边要注意的是 `const store = useStore()` ，它的定义要写在setup中的外层，不要定义到某个方法里面，不然执行的时候获取不到
 ```js
 import { toRefs, reactive } from "vue";
 import { useStore } from "vuex";

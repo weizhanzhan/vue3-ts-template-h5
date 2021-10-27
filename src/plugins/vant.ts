@@ -10,7 +10,11 @@ import {
   Field,
   Popover,
   ActionSheet,
-  Uploader
+  Uploader,
+  Swipe,
+  SwipeItem,
+  Tab,
+  Tabs
 } from "vant";
 
 const plugins = [
@@ -24,13 +28,19 @@ const plugins = [
   Field,
   ActionSheet,
   Uploader,
-  Popover
+  Popover,
+  Tab,
+  Tabs
 ];
 
+const useComponents = [Swipe, SwipeItem];
 export const vantPlugins = {
   install: function(vm: VM) {
     plugins.forEach(item => {
       vm.component(item.name, item);
+    });
+    useComponents.forEach(item => {
+      vm.use(item);
     });
   }
 };

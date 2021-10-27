@@ -5,6 +5,7 @@
         <van-icon
           name="arrow-left"
           size="20"
+          @click="toBack"
           class="action-left"
           color="#ffffff"
         />
@@ -37,6 +38,7 @@
 </template>
 
 <script lang="ts">
+import { useRouter } from "vue-router";
 import { defineComponent, onMounted, ref } from "vue";
 import GoodLeft from "./GoodLeft.vue";
 import GoodRight from "./GoodRight.vue";
@@ -51,6 +53,7 @@ export default defineComponent({
     GoodRight
   },
   setup(props) {
+    const router = useRouter();
     let containerDom: HTMLElement | null = null;
 
     let contentElement: HTMLElement | null = null;
@@ -78,8 +81,12 @@ export default defineComponent({
       // contentElement && (contentElement.onscroll = scroll);
       containerDom && (containerDom.onscroll = scroll);
     });
+    const toBack = () => {
+      router.back();
+    };
 
     return {
+      toBack,
       good: props.goods,
       bindContentDom,
       bindContainertDom,

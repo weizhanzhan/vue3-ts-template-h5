@@ -23,6 +23,7 @@
 - [新颖的CompositionApi](#CompositionApi)
 - [Vant配置](#vant配置)
 - [Vant主题修改](#vant主题色)
+- [关于样式穿透](#关于样式穿透)
 - [浏览器样式重置](#浏览器样式重置)
 - [移动端1px边框](#移动端1px边框)
 - [Vue3.0中Vuex的配置与使用以及替代方案](#vuex的配置与使用)
@@ -445,6 +446,33 @@ module.exports = {
 
 ```
 
+## 关于样式穿透
+
+以往的样式穿透方法`>>>`和`/deep/`在vue3中会报一下警告信息
+```the ＞＞＞ and /deep/ combinators have been deprecated. Use :deep() instead```
+可以改为
+```css
+// 第一种
+:v-deep .ant-table-tbody > tr > td,
+:v-deep .ant-table-thead > tr > th {
+	vertical-align: middle !important;
+}
+// 第二种
+::v-deep(.ant-table-tbody > tr > td),
+::v-deep(.ant-table-thead > tr > th) {
+	vertical-align: middle !important;
+}
+// 第三种
+:v-deep(.ant-table-tbody > tr > td),
+:v-deep(.ant-table-thead > tr > th) {
+	vertical-align: middle !important;
+}
+// 第四种
+:deep(.ant-table-tbody > tr > td),
+:deep(.ant-table-thead > tr > th) {
+	vertical-align: middle !important;
+}
+```
 
 ## 浏览器样式重置
 

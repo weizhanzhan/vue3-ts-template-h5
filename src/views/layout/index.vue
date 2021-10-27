@@ -8,7 +8,7 @@
       </router-view>
     </div>
     <div class="bottom-bar">
-      <van-tabbar v-model="active">
+      <van-tabbar v-model="active" active-color="#85a5ff">
         <van-tabbar-item name="/home" icon="home-o">Home</van-tabbar-item>
         <van-tabbar-item name="/about" icon="smile-o">About</van-tabbar-item>
       </van-tabbar>

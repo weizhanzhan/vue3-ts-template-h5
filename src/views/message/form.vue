@@ -29,30 +29,31 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from "vue";
-import WxBar from "@/components/Navbar.vue";
 import { useRandomName } from "@/utils/utils";
 import { Toast } from "vant";
 import { BmobMessage } from "@/entities/bmob";
 import { useStore } from "vuex";
 import { UserState } from "@/store/modules/user";
 import { useRouter } from "vue-router";
+import WxBar from "@/components/Navbar.vue";
+interface FormState {
+  message: string;
+  fileList: Array<{ url: string; content?: string }>;
+}
 const ImageTypes = ["image/jpeg", "image/jpg", "image/png"];
+
 export default defineComponent({
   components: { WxBar },
   setup() {
-    const state: {
-      message: string;
-      fileList: Array<{ url: string; content?: string }>;
-    } = reactive({
-      message: "",
-      fileList: []
-    });
+    const state: FormState = reactive({ message: "", fileList: [] });
     const router = useRouter();
+    const store = useStore<{ user: UserState }>();
 
     const form = new BmobMessage(
       reactive({ name: "", content: "", files: [], state: false })
     );
 
+    // 上传文件之前触发
     function beforeRead(file: File) {
       if (ImageTypes.indexOf(file.type) === -1) {
         Toast("请上传 jpg或者 png 格式图片");
@@ -60,12 +61,14 @@ export default defineComponent({
       }
       return true;
     }
+
+    // 限制大小
     function onOversize() {
       Toast("文件大小不能超过 500kb");
     }
 
+    //提交
     function submit() {
-      const store = useStore<{ user: UserState }>();
       const form = new BmobMessage({
         name: store.state.user.loginUser || useRandomName(),
         content: state.message,
@@ -76,6 +79,8 @@ export default defineComponent({
         router.back();
       });
     }
+
+    // 返回
     function toback() {
       router.back();
     }

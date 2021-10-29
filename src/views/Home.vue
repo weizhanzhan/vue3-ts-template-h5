@@ -60,7 +60,11 @@
       >
         <van-tab title="发现">
           <div class="topic_box">
-            发现模块正在开发😄
+            <Recommend
+              v-for="(item, index) in list"
+              :key="index"
+              :data="item"
+            />
           </div>
         </van-tab>
         <van-tab title="关注">
@@ -111,57 +115,47 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, toRefs, inject, ref } from "vue";
-import { useStore } from "vuex";
+import { defineComponent, reactive, toRefs, ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import { getResouceList } from "@/api/resource";
+import { ResourceOption } from "@/entities/resource";
+import { menus } from "@/mock/data";
+import Recommend from "@/components/Recommend.vue";
 export default defineComponent({
   name: "HOME",
-
+  components: {
+    Recommend
+  },
   setup() {
     const router = useRouter();
-    const state = reactive({
-      user: {}
+    const state: {
+      list: ResourceOption[];
+    } = reactive({
+      list: []
     });
-    const planList = inject("planList");
-    console.log(planList);
+
     const activeTopic = ref(0);
 
-    const menus = [
-      {
-        title: "WeChat朋友圈 ",
-        path: "/message",
-        icon: "friends-o",
-        sub: "🌴 Vue3模仿微信朋友圈，点击查看！欢迎留言 "
-      },
-      {
-        title: "Shoping购物车 ",
-        path: "/shop",
-        icon: "cart-o",
-        sub: "🛒 Vue3购物车项目开始启动，尽请期待！ "
-      },
-      {
-        title: "Vuex",
-        path: "/vuex",
-        icon: "cluster-o",
-        sub:
-          "📦 Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式! <br>点击我查看Vue3.0中Vuex的操作吧"
-      },
-      {
-        title: "Composition Api",
-        path: "/vuex",
-        icon: "hot-o",
-        sub:
-          "👄 下一个主要版本的Vue中讨论的最常见的就是Composition AP的特色语法的。 这是一种全新的逻辑重用和代码组织方法"
-      }
-    ];
-    const store = useStore();
-    state.user = store.state.user;
     const toDetail = (path: string) => {
       router.push(path);
     };
     const toMessage = () => {
       router.push("/message");
     };
+
+    const getData = () => {
+      getResouceList()
+        .then(result => {
+          console.log(result);
+          state.list = result;
+        })
+        .catch();
+    };
+
+    onMounted(() => {
+      getData();
+    });
+
     return {
       ...toRefs(state),
       menus,
@@ -203,6 +197,7 @@ export default defineComponent({
     display: flex;
     justify-content: space-between;
     margin-top: 8px;
+    padding: 0 6px;
     .menu_item {
       text-align: center;
       span {

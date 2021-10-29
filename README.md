@@ -24,6 +24,8 @@
 - [基础搭建](#基础搭建)
 - [Vue3.0新特性与改动](#vue3的新特性和改动)
 - [新颖的CompositionApi](#CompositionApi)
+- [Axios配置及接口数据类型定义](#Axios配置及接口数据类型定义)
+- [关于Vue3中使用Typescript的注意点](#关于Vue3中使用Typescript的注意点)
 - [Vant配置](#vant配置)
 - [Vant主题修改](#vant主题色)
 - [关于样式穿透](#关于样式穿透)
@@ -250,6 +252,133 @@ export default {
 
 #### getCurrentInstance
 在setup中，是没有办法通过this获取到vue，我们可以通过getCurrentInstance获取vue实例
+
+## Axios配置及接口数据类型定义
+### axios封装配置
+```ts
+//目前不完善，后续会补充，整体结构没问题
+import axios from "axios";
+const baseURL = "xxxx";
+const requestTimeout = 10000;
+const successCode = [200, 0];
+const instance = axios.create({
+  baseURL,
+  timeout: requestTimeout,
+  headers: {
+    "Content-Type": "application/json;charset=UTF-8"
+  }
+});
+
+instance.interceptors.request.use(
+  config => {
+    return config;
+  },
+  error => {
+    return Promise.reject(error);
+  }
+);
+instance.interceptors.response.use(
+  response => {
+    const res = response.data;
+    const { data } = response;
+    const { code, msg } = data;
+
+    // 操作成功
+    if (successCode.indexOf(code) !== -1) {
+      return res;
+    } else {
+      console.log(msg);
+      return Promise.reject();
+    }
+  },
+  error => {
+    const { response } = error;
+    if (response && response.data) {
+      return Promise.reject(error);
+    } else {
+      const { message } = error;
+      console.log(message);
+      return Promise.reject(error);
+    }
+  }
+);
+
+export default instance;
+```
+### 数据类型配置
+TypeScript中Axios默认返回类型为any，那么我们如果要自己定义数据类型该怎么做呢？
+1. 首先我们在声明文件中重新生命axios模块，vue-cli自带shims-vue.d文件，如果没有就新建一个，在src目录下
+```ts
+import axios from 'axios'
+
+declare module 'axios' {
+  export interface AxiosInstance {
+    <T = any>(config: AxiosRequestConfig): Promise<T>;
+    request<T = any> (config: AxiosRequestConfig): Promise<T>;
+    get<T = any>(url: string, config?: AxiosRequestConfig): Promise<T>;
+    delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<T>;
+    head<T = any>(url: string, config?: AxiosRequestConfig): Promise<T>;
+    post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T>;
+    put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T>;
+    patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T>;
+  }
+}
+```
+接下来就可以使用了
+```ts
+interface ResourceOption{
+  title:string;
+  logo:string;
+}
+
+export const getResouceList = () => {
+  return request<ResourceOption[]>({
+    url: "api/resource/list",
+    method: "get"
+  });
+};
+
+```
+## 关于Vue3中使用Typescript的注意点
+
+#### 1.Props定义数据类型
+>为了类型推论，让我们在使用属性的时候获取更丰富的类型提示，比如在这里我们定义了一个属性 list，使用 vue 默认的 Array，只能确定它是一个数组类型，不能确定数组里面的每一项到底是什么样子的。你在 setup 中，看 props.list 就是一个any数组，但是如果使用PropType <ColumnProps[]> 这个时候，props.list 就变成一个 ColumnProps 的数组，你使用它的时候不论在 ts 中还是模版中都能获得类型的推断和自动补全等等
+```js
+<script lang='ts'>
+import {defineComponent, PropType} from 'vue'
+export interface ColumnProps{
+    id: string;
+    title: string;
+    avatar: string;
+    description: string;
+}
+export default defineComponent({
+    name:'ColumnList',
+    props:{
+        list:{
+            type:Array as PropType<ColumnProps[]>,
+            required:true
+        }
+    }
+})
+</script>
+```
+```js
+<script lang="ts">
+import { ResourceOption } from "@/entities/resource";
+import { defineComponent, PropType } from "vue";
+
+export default defineComponent({
+  props: {
+    data: {
+      type: Object as PropType<ResourceOption>
+    }
+  }
+});
+</script>
+```
+#### 2.axios数据类型配置
+详细见上面[Axios配置及接口数据类型定义](#Axios配置及接口数据类型定义)
 
 ## Vant配置
 - 安装

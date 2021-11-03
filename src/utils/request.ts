@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseURL = "http://qa.i4cloud.cn:40001/mock/89/";
+const baseURL = "http://localhost:8080/api";
 const requestTimeout = 10000;
 const instance = axios.create({
   baseURL,

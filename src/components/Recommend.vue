@@ -1,7 +1,7 @@
 <template>
   <div class="recommend" @click="toDetail">
     <div class="logo">
-      <img :src="require(`@/assets/images/resource/${data.logo}`)" alt="" />
+      <img :src="data.logo" alt="" />
     </div>
     <div class="info">
       <div class="title">
@@ -39,9 +39,8 @@ export default defineComponent({
 @import "@/theme/hairline";
 .recommend {
   position: relative;
-  padding: 0 6px;
+  padding: 12px 6px;
 
-  padding-top: 12px;
   display: flex;
   .logo {
     width: 30px;
@@ -66,7 +65,7 @@ export default defineComponent({
 .recommend + .recommend {
   margin-top: 12px;
   &::after {
-    .hairline-top(@border-color);
+    .hairline-bottom(@border-color);
   }
 }
 </style>

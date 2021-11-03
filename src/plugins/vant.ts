@@ -14,7 +14,9 @@ import {
   Swipe,
   SwipeItem,
   Tab,
-  Tabs
+  Tabs,
+  SwipeCell,
+  Empty
 } from "vant";
 
 const plugins = [
@@ -33,7 +35,7 @@ const plugins = [
   Tabs
 ];
 
-const useComponents = [Swipe, SwipeItem];
+const useComponents = [Swipe, SwipeItem, SwipeCell, Empty];
 export const vantPlugins = {
   install: function(vm: VM) {
     plugins.forEach(item => {

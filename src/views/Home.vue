@@ -9,31 +9,38 @@
     <div class="header_menu">
       <div class="menu_item" @click="toDetail('/message')">
         <div>
-          <van-icon name="wechat" size="40" color="#52c41a" />
+          <van-icon name="wechat" size="35" color="#52c41a" />
         </div>
         <span>朋友圈</span>
       </div>
       <div class="menu_item" @click="toDetail('/shop')">
         <div>
-          <van-icon name="cart-circle" size="40" color="#13c2c2" />
+          <van-icon name="cart-circle" size="35" color="#fa8c16" />
         </div>
         <span>购物车</span>
       </div>
-      <div class="menu_item" @click="toDetail('/vuex')">
+
+      <div class="menu_item" @click="toDetail('/message')">
         <div>
-          <van-icon name="fire" size="40" color="#ee0a24" />
+          <van-icon name="map-marked" size="35" color="#40a9ff" />
         </div>
-        <span>Vuex</span>
+        <span>地图</span>
       </div>
       <div class="menu_item" @click="toDetail('/message')">
         <div>
-          <van-icon name="umbrella-circle" size="40" color="#2f54eb" />
+          <van-icon name="music" size="35" color="#000000" />
         </div>
-        <span>广场</span>
+        <span>短视频</span>
+      </div>
+      <div class="menu_item" @click="toDetail('/vuex')">
+        <div>
+          <van-icon name="fire" size="35" color="#ee0a24" />
+        </div>
+        <span>更多</span>
       </div>
     </div>
     <div class="hot_rank">
-      <div class="title">猜你喜欢~</div>
+      <div class="title">今日热榜</div>
       <div>
         <van-swipe class="projects" :loop="false" :width="300">
           <van-swipe-item>
@@ -60,66 +67,61 @@
       >
         <van-tab title="发现">
           <div class="topic_box">
-            <Recommend
+            <van-swipe-cell
+              class="swipe-item"
               v-for="(item, index) in list"
               :key="index"
-              :data="item"
-            />
+            >
+              <Recommend :data="item" />
+              <template #right>
+                <van-button
+                  @click="toCollectResource(item)"
+                  square
+                  text="关注"
+                  type="danger"
+                  color="#85a5ff"
+                  class="star-button"
+                />
+              </template>
+            </van-swipe-cell>
           </div>
         </van-tab>
         <van-tab title="关注">
           <div class="topic_box">
-            关注模块正在开发😄
+            <van-empty
+              v-if="collection.length == 0"
+              description="发现列表向左滑动每一项来关注😄"
+            />
+            <van-swipe-cell
+              v-else
+              class="swipe-item"
+              v-for="(item, index) in collection"
+              :key="'collection' + index"
+            >
+              <Recommend :data="item" />
+              <template #right>
+                <van-button
+                  @click="toCollectResource(item)"
+                  square
+                  text="关注"
+                  style="background:#85a5ff"
+                  class="star-button"
+                />
+              </template>
+            </van-swipe-cell>
           </div>
         </van-tab>
       </van-tabs>
     </div>
-    <!-- <div class="user-head">
-      <div class="user-avatar">
-        <img src="@assets/images/vue3.png" alt="" />
-      </div>
-      <div class="user-info">
-        <div class="name">{{ user.name }}</div>
-        <div class="hello">vue3.0 ts h5 with vant</div>
-      </div>
-      <div class="message">
-        <div class="message-box" @click="toMessage">
-          <van-icon
-            name="smile-comment-o"
-            size="30"
-            badge="9"
-            color="#4fc08d"
-          />
-        </div>
-      </div>
-    </div>
-  
-    <div class="menu">
-      <div class="list">
-        <div
-          class="item"
-          v-for="item in menus"
-          :key="item.title"
-          @click="toDetail(item.path)"
-        >
-          <div>
-            <van-icon :name="item.icon" size="30" color="#4fc08d" />
-          </div>
-          <div class="intro">
-            <div class="title">{{ item.title }}</div>
-            <div class="sub-title" v-html="item.sub"></div>
-          </div>
-        </div>
-      </div>
-    </div> -->
   </div>
 </template>
 <script lang="ts">
 import { defineComponent, reactive, toRefs, ref, onMounted } from "vue";
+import { Notify } from "vant";
 import { useRouter } from "vue-router";
 import { getResouceList } from "@/api/resource";
 import { ResourceOption } from "@/entities/resource";
-import { menus } from "@/mock/data";
+import { menus, resource } from "@/mock/data";
 import Recommend from "@/components/Recommend.vue";
 export default defineComponent({
   name: "HOME",
@@ -130,8 +132,10 @@ export default defineComponent({
     const router = useRouter();
     const state: {
       list: ResourceOption[];
+      collection: ResourceOption[];
     } = reactive({
-      list: []
+      list: [],
+      collection: []
     });
 
     const activeTopic = ref(0);
@@ -146,13 +150,22 @@ export default defineComponent({
     const getData = () => {
       getResouceList()
         .then(result => {
-          console.log(result);
           state.list = result;
         })
         .catch();
     };
 
+    function toCollectResource(resource: ResourceOption) {
+      Notify({
+        color: "#ffffff",
+        background: "#85a5ff",
+        message: "关注成功！"
+      });
+      state.collection.push(resource);
+    }
+
     onMounted(() => {
+      state.list = resource;
       getData();
     });
 
@@ -161,6 +174,7 @@ export default defineComponent({
       menus,
       toDetail,
       toMessage,
+      toCollectResource,
       activeTopic
     };
   }
@@ -170,9 +184,8 @@ export default defineComponent({
 @import "@/theme/hairline";
 .home {
   height: 100%;
-  padding: 0 12px;
   .page_header {
-    padding: 12px 0;
+    padding: 12px;
     display: flex;
     align-items: center;
     .page_title {
@@ -197,28 +210,31 @@ export default defineComponent({
     display: flex;
     justify-content: space-between;
     margin-top: 8px;
-    padding: 0 6px;
+    margin-bottom: 8px;
+    padding: 0 12px;
     .menu_item {
       text-align: center;
       span {
-        font-size: 14px;
+        font-size: 13px;
         display: inline-block;
         margin-top: 6px;
       }
     }
   }
   .hot_rank {
+    padding: 0 12px;
     margin-top: 16px;
     .title {
-      font-size: 17px;
+      font-size: 16px;
       font-weight: bold;
     }
     .projects {
       margin-top: 12px;
       :deep(.van-swipe-item) {
-        border: 1px solid #eeeeee;
         font-size: 20px;
         text-align: center;
+        border-radius: 4px;
+
         img {
           width: 100%;
           height: 152px;
@@ -228,6 +244,7 @@ export default defineComponent({
     }
   }
   .topic_tab {
+    padding-left: 12px;
     :deep(.van-tabs__nav--line.van-tabs__nav--complete) {
       padding-left: 0 !important;
     }
@@ -243,101 +260,16 @@ export default defineComponent({
       flex: none;
     }
     .topic_box {
-      padding: 12px 0;
+      .swipe-item {
+        position: relative;
+        &::after {
+          .hairline-bottom(@border-color);
+        }
+        .star-button {
+          height: 100%;
+        }
+      }
     }
   }
-
-  // .user-head {
-  //   display: flex;
-  //   justify-content: space-between;
-  //   padding: 0 24px 0 16px;
-
-  //   .user-avatar {
-  //     width: 60px;
-  //     & > img {
-  //       margin-top: 6px;
-  //       width: 60px;
-  //       height: 60px;
-  //       border-radius: 20px;
-  //     }
-  //   }
-  //   .user-info {
-  //     flex: 1;
-  //     padding: 12px;
-  //     .hello {
-  //       color: #bfbfbf;
-  //       margin-top: 8px;
-  //     }
-  //     .name {
-  //       font-size: 24px;
-  //     }
-  //   }
-  //   .message {
-  //     width: 50px;
-  //     display: flex;
-  //     align-items: center;
-  //     .message-box {
-  //       height: 50px;
-  //       width: 50px;
-  //       display: flex;
-  //       align-items: center;
-  //       border-radius: 10px;
-  //       text-align: center;
-  //       justify-content: center;
-  //       // box-shadow: 1px 4px 25px rgba($color: #000000, $alpha: 0.15);
-  //     }
-  //   }
-  // }
-  // .divider-line {
-  //   width: 100%;
-  //   height: 12px;
-  //   background: #f0f0f0;
-  // }
-  // .menu {
-  //   .list {
-  //     padding: 10px 20px;
-  //     box-sizing: border-box;
-  //     width: 100%;
-  //     overflow: hidden;
-
-  //     .item {
-  //       display: flex;
-  //       padding: 12px 0;
-  //       position: relative;
-  //       width: 100%;
-  //       min-height: 40px;
-  //       .menu-img {
-  //         background: #bae7ff;
-  //         border-radius: 30%;
-  //         width: 30px;
-  //         height: 30px;
-  //       }
-  //       .intro {
-  //         flex: 1;
-  //         display: flex;
-  //         flex-direction: column;
-  //         justify-content: space-between;
-  //         padding-left: 12px;
-  //         .title {
-  //           font-size: 18px;
-  //           font-weight: 500;
-  //           vertical-align: text-top;
-  //         }
-  //         .sub-title {
-  //           color: #969799;
-  //           width: 92%;
-  //           font-size: 14px;
-  //           margin-top: 6px;
-  //           line-height: 1.3;
-  //         }
-  //       }
-  //     }
-  //     .item + .item {
-  //       &::after {
-  //         .hairline-top(@border-color);
-  //       }
-  //     }
-  //   }
-  // }
 }
 </style>

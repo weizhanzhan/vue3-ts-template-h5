@@ -4,7 +4,14 @@
       <img :src="require('@/assets/images/banner1.jpg')" alt="" />
       <span class="head-title">我的</span>
     </div>
-    <div class="my-container">
+    <div
+      class="my-container"
+      ref="container"
+      :draggable="true"
+      @touchstart="onDragStart($event)"
+      @touchmove="onDragOver($event)"
+      @touchend="onDragEnd($event)"
+    >
       <div class="info-box">
         <div class="my-info">
           <div class="avatar">
@@ -35,38 +42,52 @@
 </template>
 <script lang="ts">
 import { defineComponent, reactive, ref } from "vue";
-import { useAsync } from "@/hooks/useAsync";
-import axios from "axios";
 
 export default defineComponent({
   name: "ABOUT",
   setup() {
     const todos = ref([]);
+    const container = ref<HTMLElement>();
 
     const state = reactive({
-      value: "",
-      a: {
-        b: {
-          c: 1
-        }
-      }
+      startY: 0
     });
 
-    async function getTodos() {
-      todos.value = await axios.get(
-        "https://jsonplaceholder.typicode.com/todos/1"
-      );
-    }
-    const { loading, refresh } = useAsync(getTodos);
+    // async function getTodos() {
+    //   todos.value = await axios.get(
+    //     "https://jsonplaceholder.typicode.com/todos/1"
+    //   );
+    // }
+    // const { loading, refresh } = useAsync(getTodos);
 
-    function submit() {
-      refresh();
-    }
+    // function submit() {
+    //   refresh();
+    // }
+    const onDragStart = (e: TouchEvent) => {
+      state.startY = e.changedTouches[0].clientY;
+    };
+    const onDragOver = (e: TouchEvent) => {
+      const clientY = e.changedTouches[0].clientY;
+      const containerDom = container.value;
+      const initClientY = -100;
+      const scrollAble = clientY - state.startY;
 
-    return { loading, todos, submit, state };
-  },
-  activated() {
-    console.log("我被缓存了");
+      let y = scrollAble + initClientY;
+      y = y / 3.75;
+      if (containerDom) {
+        containerDom.style.transition = "none";
+        containerDom.style.transform = "translateY(" + y + "vw)";
+      }
+    };
+    const onDragEnd = (e: TouchEvent) => {
+      const containerDom = container.value;
+      if (containerDom) {
+        containerDom.style.transition = "transform .6s";
+        containerDom.style.transform = "translateY(" + -(100 / 3.75) + "vw)";
+      }
+    };
+
+    return { todos, state, onDragStart, onDragOver, onDragEnd, container };
   }
 });
 </script>

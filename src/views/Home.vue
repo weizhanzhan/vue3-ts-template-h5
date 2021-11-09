@@ -77,7 +77,7 @@
                 <van-button
                   @click="toCollectResource(item)"
                   square
-                  text="关注"
+                  :text="handleItemIsSelect(item) ? '关注' : '取消'"
                   type="danger"
                   color="#85a5ff"
                   class="star-button"
@@ -103,8 +103,8 @@
                 <van-button
                   @click="toCollectResource(item)"
                   square
-                  text="关注"
-                  style="background:#85a5ff"
+                  :text="handleItemIsSelect(item) ? '关注' : '取消'"
+                  color="#85a5ff"
                   class="star-button"
                 />
               </template>
@@ -161,7 +161,20 @@ export default defineComponent({
         background: "#85a5ff",
         message: "关注成功！"
       });
-      state.collection.push(resource);
+      const index = state.collection.findIndex(
+        item => item.title === resource.title
+      );
+      if (index === -1) {
+        state.collection.push(resource);
+      } else {
+        state.collection.splice(index, 1);
+      }
+    }
+    function handleItemIsSelect(resource: ResourceOption) {
+      const index = state.collection.findIndex(
+        item => item.title === resource.title
+      );
+      return index === -1;
     }
 
     onMounted(() => {
@@ -175,6 +188,7 @@ export default defineComponent({
       toDetail,
       toMessage,
       toCollectResource,
+      handleItemIsSelect,
       activeTopic
     };
   }

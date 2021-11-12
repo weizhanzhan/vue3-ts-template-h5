@@ -23,9 +23,9 @@
 ## 目录
 - [基础搭建](#基础搭建)
 - [Vue3.0新特性与改动](#vue3的新特性和改动)
-- [新颖的CompositionApi](#CompositionApi)
-- [Axios配置及接口数据类型定义](#Axios配置及接口数据类型定义)
-- [关于Vue3中使用Typescript的注意点](#关于Vue3中使用Typescript的注意点)
+- [新颖的CompositionApi](#compositionapi)
+- [Axios配置及接口数据类型定义](#axios配置及接口数据类型定义)
+- [关于Vue3中使用Typescript的注意点](#关于vue3中使用typescript的注意点)
 - [Vant配置](#vant配置)
 - [Vant主题修改](#vant主题色)
 - [关于样式穿透](#关于样式穿透)
@@ -35,7 +35,7 @@
 - [Vue3.0路由配置和缓存](#vue路由配置和缓存)
 - [tsconfig配置](#tsconfig配置)
 - [语法检测自动格式代码](#语法检测自动格式代码)
-- [发布&部署](#发布&部署)
+- [发布&部署](#发布部署)
 - [关于我](#关于我)
 - [感谢](#感谢)
 ## 基础搭建
@@ -66,10 +66,10 @@ vue add typescript
 >10. Where do you prefer placing config for Babel, ESLint, etc.? (Use arrow keys) **In dedicated config files**
 
 
-# vue3的新特性和改动
+## vue3的新特性和改动
 
-## 1.v-model
-### 2.x语法
+### v-model
+#### 2.x语法
 在 2.x 中，在组件上使用 v-model 相当于绑定 `value` prop 和 `input` 事件：
 ```html
 <child-component v-model="title" />
@@ -87,7 +87,7 @@ vue是单向数据流，为了对prop进行"双向绑定",可以是用sync来实
 ```js
 this.$emit('update:title',value)
 ```
-### 3.x语法
+#### 3.x语法
 在3.x中自定义组件的`v-model`，是传递了`modelValue`prop并接受抛出的`update:modelValue`事件,和sync很像
 ```html
 <child-component v-model="title" />
@@ -112,7 +112,7 @@ this.$emit('update:title',value)
 <child-component v-model:title="pageTitle" v-model:content="content"/>
 ```
 
-## v-for
+### v-for
 v-for的变动最主要体现在`key`上面，我们在使用`<template v-for>`的时候，2.x语法的key值不可以加在`template`标签上面,要加到子节点上,而在3.x中则可以加到`template`上,并且不需要在子节点上添加`key`
 ```html
 <!-- Vue 2.x -->
@@ -127,7 +127,7 @@ v-for的变动最主要体现在`key`上面，我们在使用`<template v-for>`�
   <span>...</span>
 </template>
 ```
-## ref
+### ref
 在2.0中，在`v-for`中绑定ref,我们通过`$ref`，获取的是一个ref数组，在3.x中则不会自动创建数组，我们需要绑定一个函数，自己处理并接受它
 ```html
 <div v-for="item in list" :ref="setItemRef"></div>
@@ -223,7 +223,9 @@ export default {
 </script>
 
 ```
-### 你也可以这样写
+
+你也可以这样写
+
 ```js
 import { reactive, computed, toRefs } from "vue";
 export default {
@@ -378,7 +380,7 @@ export default defineComponent({
 </script>
 ```
 #### 2.axios数据类型配置
-详细见上面[Axios配置及接口数据类型定义](#Axios配置及接口数据类型定义)
+详细见上面[Axios配置及接口数据类型定义](#axios配置及接口数据类型定义)
 
 ## Vant配置
 - 安装

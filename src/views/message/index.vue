@@ -142,15 +142,15 @@ export default defineComponent({
         content:
           "Hello everyone! 欢迎大家，请适当言论，喜欢记得给个star呀！(づ￣ 3￣)づ",
         files: [
-          "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3831337348,1544176931&fm=26&gp=0.jpg",
-          "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=103133962,3138181394&fm=26&gp=0.jpg",
-          require("../../assets/images/1.jpg"),
+          require("../../assets/images/1.png"),
           require("../../assets/images/2.png"),
-          require("../../assets/images/qrcode.jpg"),
           require("../../assets/images/3.png"),
           require("../../assets/images/4.png"),
+          require("../../assets/images/qrcode.jpg"),
           require("../../assets/images/5.png"),
-          require("../../assets/images/6.png")
+          require("../../assets/images/6.png"),
+          require("../../assets/images/7.png"),
+          require("../../assets/images/8.png")
         ],
         state: false
       };

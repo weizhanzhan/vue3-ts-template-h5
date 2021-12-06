@@ -18,7 +18,13 @@
             <img src="@assets/images/avatar1.jpg" alt="" srcset="" />
           </div>
           <div class="intro">
-            <div class="name">weizhanzhan</div>
+            <div class="name">
+              <span>weizhanzhan</span>
+              <div class="info-tag">
+                <i class="iconfont iconjinpai"></i>
+                <span>年度最佳CV工程师</span>
+              </div>
+            </div>
             <div class="desc">一只小前端✌</div>
           </div>
         </div>
@@ -94,6 +100,8 @@ export default defineComponent({
 <style lang="less" scoped>
 .mine {
   position: relative;
+  background: #262626;
+  height: 100%;
   .my-head {
     position: relative;
     img {
@@ -110,6 +118,7 @@ export default defineComponent({
   }
   .my-container {
     min-height: 300px;
+
     background: #ffffff;
     transform: translateY(-100px);
     border-radius: 15px 15px 0 0;
@@ -130,6 +139,22 @@ export default defineComponent({
         .name {
           font-size: 16px;
           font-weight: bold;
+          .info-tag {
+            margin-left: 6px;
+            background: #000000;
+            font-size: 12px;
+            border-radius: 4px;
+            display: inline-block;
+            padding: 1px 2px;
+            color: #ffffff;
+            .iconjinpai {
+              color: #ffc53d;
+              font-size: 14px;
+            }
+            span {
+              vertical-align: top;
+            }
+          }
         }
         .desc {
           margin-top: 6px;
@@ -143,7 +168,7 @@ export default defineComponent({
       padding: 0 20px;
       text-align: center;
       .more-item {
-        margin-right: 12px;
+        margin-right: 30px;
         .value {
           font-weight: 600;
           letter-spacing: 1px;

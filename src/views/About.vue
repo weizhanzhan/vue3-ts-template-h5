@@ -42,6 +42,51 @@
             <div class="name">获赞</div>
           </div>
         </div>
+        <div class="action-box">
+          <div class="my-button large send-msg">
+            私信
+          </div>
+          <div class="my-button large watch">
+            已关注
+          </div>
+        </div>
+      </div>
+      <div class="talk">
+        <van-tabs
+          v-model:active="activeModule"
+          sticky
+          class=" my-tab"
+          color="#85a5ff"
+        >
+          <van-tab title="动态">
+            <div class="talk-item">
+              <div class="talk-user">
+                <div class="avatar">
+                  <img src="@assets/images/avatar1.jpg" alt="" srcset="" />
+                </div>
+                <div class="info">
+                  <div class="name">weizhanzhan</div>
+                  <div class="date">12-11发布了动态</div>
+                </div>
+                <div class="more">
+                  ...
+                </div>
+              </div>
+              <div class="talk-content">
+                <div class="content-text">
+                  冬天总是爱犯困😪
+                </div>
+                <div class="content-img"></div>
+              </div>
+              <div class="talk-action">
+                <!-- 点赞70 -->
+              </div>
+            </div>
+          </van-tab>
+          <van-tab title="话题">
+            1
+          </van-tab>
+        </van-tabs>
       </div>
     </div>
   </div>
@@ -56,7 +101,8 @@ export default defineComponent({
     const container = ref<HTMLElement>();
 
     const state = reactive({
-      startY: 0
+      startY: 0,
+      activeModule: 0
     });
 
     // async function getTodos() {
@@ -117,8 +163,7 @@ export default defineComponent({
     }
   }
   .my-container {
-    min-height: 300px;
-
+    min-height: 600px;
     background: #ffffff;
     transform: translateY(-100px);
     border-radius: 15px 15px 0 0;
@@ -177,6 +222,55 @@ export default defineComponent({
           margin-top: 4px;
           font-size: 12px;
           color: rgba(13, 27, 62, 0.65);
+        }
+      }
+    }
+    .action-box {
+      display: flex;
+      padding: 20px;
+      .send-msg {
+        margin-right: 20px;
+      }
+      .watch {
+        background-color: rgb(34, 34, 34);
+        color: #ffffff;
+      }
+    }
+    .talk {
+      padding-left: 12px;
+      .talk-item {
+        margin-top: 12px;
+        .talk-user {
+          display: flex;
+          .avatar {
+            width: 50px;
+            img {
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+            }
+          }
+          .info {
+            flex: 1;
+            padding-top: 4px;
+            .name {
+              font-size: 16px;
+              font-weight: bold;
+            }
+            .date {
+              color: rgba(13, 27, 62, 0.65);
+              font-size: 13px;
+              margin-top: 4px;
+            }
+          }
+          .more {
+            width: 40px;
+          }
+        }
+        .talk-content {
+          margin-top: 12px;
+          font-size: 14px;
+          font-weight: 500;
         }
       }
     }

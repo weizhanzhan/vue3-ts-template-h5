@@ -62,7 +62,7 @@
       <van-tabs
         v-model:active="activeTopic"
         sticky
-        class="topic_tab"
+        class="topic_tab my-tab"
         color="#85a5ff"
       >
         <van-tab title="发现">
@@ -259,20 +259,7 @@ export default defineComponent({
   }
   .topic_tab {
     padding-left: 12px;
-    :deep(.van-tabs__nav--line.van-tabs__nav--complete) {
-      padding-left: 0 !important;
-    }
-    :deep(.van-tabs__wrap--scrollable .van-tab) {
-      padding: 0;
-      margin-right: 12px;
-    }
-    :deep(.van-tab.van-tab--active) {
-      font-weight: bold;
-      font-size: 16px;
-    }
-    :deep(.van-tab) {
-      flex: none;
-    }
+
     .topic_box {
       .swipe-item {
         position: relative;

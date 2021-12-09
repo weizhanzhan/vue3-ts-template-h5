@@ -76,10 +76,32 @@
                 <div class="content-text">
                   冬天总是爱犯困😪
                 </div>
-                <div class="content-img"></div>
+                <div class="content-img">
+                  <img
+                    class="img1"
+                    src="@assets/images/talk1.png"
+                    alt=""
+                    srcset=""
+                  />
+                  <img
+                    class="img2"
+                    src="@assets/images/talk2.png"
+                    alt=""
+                    srcset=""
+                  />
+                </div>
               </div>
               <div class="talk-action">
                 <!-- 点赞70 -->
+                <div class="like">
+                  <van-icon name="like" size="16" color="red" /> <span>79</span>
+                </div>
+                <div class="comment">
+                  <van-icon name="comment-o" size="16" /><span>12</span>
+                </div>
+                <div class="guide">
+                  <van-icon name="guide-o" size="16" /> <span>10</span>
+                </div>
               </div>
             </div>
           </van-tab>
@@ -271,6 +293,35 @@ export default defineComponent({
           margin-top: 12px;
           font-size: 14px;
           font-weight: 500;
+          .content-img {
+            margin-top: 12px;
+            img {
+              width: 170px;
+              height: 110px;
+            }
+            .img1 {
+              border-top-left-radius: 20px;
+              margin-right: 10px;
+            }
+            .img2 {
+              border-bottom-right-radius: 20px;
+            }
+          }
+        }
+        .talk-action {
+          font-size: 13px;
+          margin-top: 8px;
+          display: flex;
+          .like {
+            margin-right: 16px;
+          }
+          .comment {
+            margin-right: 16px;
+            line-height: 1;
+          }
+          span {
+            vertical-align: top;
+          }
         }
       }
     }

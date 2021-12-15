@@ -43,17 +43,12 @@
       <div class="title">今日热榜</div>
       <div>
         <van-swipe class="projects" :loop="false" :width="300">
-          <van-swipe-item>
-            <img :src="require('@/assets/images/banner1.jpg')" alt="" />
-          </van-swipe-item>
-          <van-swipe-item>
-            <img :src="require('@/assets/images/banner2.jpg')" alt="" />
-          </van-swipe-item>
-          <van-swipe-item>
-            <img :src="require('@/assets/images/banner3.jpg')" alt="" />
-          </van-swipe-item>
-          <van-swipe-item>
-            <img :src="require('@/assets/images/banner4.jpg')" alt="" />
+          <van-swipe-item v-for="(img, index) in banners" :key="index">
+            <img
+              :src="img"
+              @click="showImg(banners, { startPosition: index })"
+              alt=""
+            />
           </van-swipe-item>
         </van-swipe>
       </div>
@@ -123,6 +118,7 @@ import { getResouceList } from "@/api/resource";
 import { ResourceOption } from "@/entities/resource";
 import { menus, resource } from "@/mock/data";
 import Recommend from "@/components/Recommend.vue";
+import { showImg } from "@/utils/utils";
 export default defineComponent({
   name: "HOME",
   components: {
@@ -130,6 +126,12 @@ export default defineComponent({
   },
   setup() {
     const router = useRouter();
+    const banners = [
+      require("@/assets/images/banner1.jpg"),
+      require("@/assets/images/banner2.jpg"),
+      require("@/assets/images/banner3.jpg"),
+      require("@/assets/images/banner4.jpg")
+    ];
     const state: {
       list: ResourceOption[];
       collection: ResourceOption[];
@@ -185,11 +187,13 @@ export default defineComponent({
     return {
       ...toRefs(state),
       menus,
+      banners,
       toDetail,
       toMessage,
       toCollectResource,
       handleItemIsSelect,
-      activeTopic
+      activeTopic,
+      showImg
     };
   }
 });

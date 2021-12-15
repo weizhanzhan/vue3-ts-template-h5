@@ -34,8 +34,15 @@
               <div class="content">
                 <div class="texts">{{ item.content }}</div>
                 <div class="imgs" v-if="item.files && item.files.length">
-                  <template v-for="img in item.files">
-                    <img :key="img" v-if="img" :src="img" alt="" srcset="" />
+                  <template v-for="(img, index) in item.files">
+                    <img
+                      :key="img"
+                      v-if="img"
+                      :src="img"
+                      alt=""
+                      srcset=""
+                      @click="showImg(item.files, { startPosition: index })"
+                    />
                   </template>
                 </div>
               </div>
@@ -97,7 +104,7 @@ import {
   BmobMessage,
   BmobMessageOption
 } from "@/entities/bmob";
-import { getBeforeNowCount, getRandomAvatar } from "@/utils/utils";
+import { getBeforeNowCount, getRandomAvatar, showImg } from "@/utils/utils";
 import { defineComponent, onMounted, reactive, toRefs } from "vue";
 import { useRouter } from "vue-router";
 
@@ -184,7 +191,8 @@ export default defineComponent({
       onLoad,
       setAvatar,
       toStar,
-      toComment
+      toComment,
+      showImg
     };
   }
 });

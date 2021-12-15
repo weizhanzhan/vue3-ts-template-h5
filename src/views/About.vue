@@ -79,15 +79,17 @@
                 <div class="content-img">
                   <img
                     class="img1"
-                    src="@assets/images/talk1.png"
+                    :src="talk1Img"
                     alt=""
+                    @click="showImg([talk1Img])"
                     srcset=""
                   />
                   <img
                     class="img2"
-                    src="@assets/images/talk2.png"
+                    :src="talk2Img"
                     alt=""
                     srcset=""
+                    @click="showImg([talk2Img])"
                   />
                 </div>
               </div>
@@ -115,7 +117,11 @@
 </template>
 <script lang="ts">
 import { defineComponent, reactive, ref } from "vue";
-
+import { showImg } from "@/utils/utils";
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const talk1Img = require("@/assets/images/talk1.png");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const talk2Img = require("@/assets/images/talk2.png");
 export default defineComponent({
   name: "ABOUT",
   setup() {
@@ -154,6 +160,7 @@ export default defineComponent({
       }
     };
     const onDragEnd = (e: TouchEvent) => {
+      console.log(e);
       const containerDom = container.value;
       if (containerDom) {
         containerDom.style.transition = "transform .6s";
@@ -161,7 +168,17 @@ export default defineComponent({
       }
     };
 
-    return { todos, state, onDragStart, onDragOver, onDragEnd, container };
+    return {
+      todos,
+      state,
+      onDragStart,
+      onDragOver,
+      onDragEnd,
+      container,
+      showImg,
+      talk1Img,
+      talk2Img
+    };
   }
 });
 </script>

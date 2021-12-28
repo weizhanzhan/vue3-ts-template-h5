@@ -26,7 +26,7 @@
         </div>
         <span>地图</span>
       </div>
-      <div class="menu_item" @click="toDetail('/message')">
+      <div class="menu_item" @click="toDetail('/video')">
         <div>
           <van-icon name="music" size="35" color="#000000" />
         </div>

@@ -151,8 +151,8 @@ export default defineComponent({
 
     const getData = () => {
       getResouceList()
-        .then(result => {
-          state.list = result;
+        .then(() => {
+          // state.list = result;
         })
         .catch();
     };

@@ -26,7 +26,7 @@
         </div>
         <span>地图</span>
       </div>
-      <div class="menu_item" @click="toDetail('/message')">
+      <div class="menu_item" @click="toDetail('/video')">
         <div>
           <van-icon name="music" size="35" color="#000000" />
         </div>
@@ -43,17 +43,12 @@
       <div class="title">今日热榜</div>
       <div>
         <van-swipe class="projects" :loop="false" :width="300">
-          <van-swipe-item>
-            <img :src="require('@/assets/images/banner1.jpg')" alt="" />
-          </van-swipe-item>
-          <van-swipe-item>
-            <img :src="require('@/assets/images/banner2.jpg')" alt="" />
-          </van-swipe-item>
-          <van-swipe-item>
-            <img :src="require('@/assets/images/banner3.jpg')" alt="" />
-          </van-swipe-item>
-          <van-swipe-item>
-            <img :src="require('@/assets/images/banner4.jpg')" alt="" />
+          <van-swipe-item v-for="(img, index) in banners" :key="index">
+            <img
+              :src="img"
+              @click="showImg(banners, { startPosition: index })"
+              alt=""
+            />
           </van-swipe-item>
         </van-swipe>
       </div>
@@ -62,7 +57,7 @@
       <van-tabs
         v-model:active="activeTopic"
         sticky
-        class="topic_tab"
+        class="topic_tab my-tab"
         color="#85a5ff"
       >
         <van-tab title="发现">
@@ -123,6 +118,7 @@ import { getResouceList } from "@/api/resource";
 import { ResourceOption } from "@/entities/resource";
 import { menus, resource } from "@/mock/data";
 import Recommend from "@/components/Recommend.vue";
+import { showImg } from "@/utils/utils";
 export default defineComponent({
   name: "HOME",
   components: {
@@ -130,6 +126,12 @@ export default defineComponent({
   },
   setup() {
     const router = useRouter();
+    const banners = [
+      require("@/assets/images/banner1.jpg"),
+      require("@/assets/images/banner2.jpg"),
+      require("@/assets/images/banner3.jpg"),
+      require("@/assets/images/banner4.jpg")
+    ];
     const state: {
       list: ResourceOption[];
       collection: ResourceOption[];
@@ -185,11 +187,13 @@ export default defineComponent({
     return {
       ...toRefs(state),
       menus,
+      banners,
       toDetail,
       toMessage,
       toCollectResource,
       handleItemIsSelect,
-      activeTopic
+      activeTopic,
+      showImg
     };
   }
 });
@@ -259,20 +263,7 @@ export default defineComponent({
   }
   .topic_tab {
     padding-left: 12px;
-    :deep(.van-tabs__nav--line.van-tabs__nav--complete) {
-      padding-left: 0 !important;
-    }
-    :deep(.van-tabs__wrap--scrollable .van-tab) {
-      padding: 0;
-      margin-right: 12px;
-    }
-    :deep(.van-tab.van-tab--active) {
-      font-weight: bold;
-      font-size: 16px;
-    }
-    :deep(.van-tab) {
-      flex: none;
-    }
+
     .topic_box {
       .swipe-item {
         position: relative;

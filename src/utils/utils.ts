@@ -1,3 +1,5 @@
+import { ImagePreview } from "vant";
+
 export const useRandomName = () => {
   const firstName = [
     "李",
@@ -112,4 +114,14 @@ export const getBeforeNowCount = (date: string) => {
     const diffedSecond = Math.abs(diffSecond - nowSecond);
     return diffedSecond + "秒前";
   }
+};
+
+export const showImg = (
+  imgs: Array<string>,
+  option?: { startPosition: number }
+) => {
+  ImagePreview({
+    images: imgs,
+    startPosition: option ? option.startPosition || 0 : 0
+  });
 };

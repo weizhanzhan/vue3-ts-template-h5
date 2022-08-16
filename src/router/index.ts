@@ -54,6 +54,12 @@ const routes: Array<RouteRecordRaw> = [
     name: "FORM",
     component: () =>
       import(/* webpackChunkName: "form" */ "../views/message/form.vue")
+  },
+  {
+    path: "/video",
+    name: "Video",
+    component: () =>
+      import(/* webpackChunkName: "video" */ "../views/video/index")
   }
 ];
 
@@ -63,7 +69,7 @@ const router = createRouter({
 });
 
 // const routerPush = router.push;
-// router.push = function(to) {
+// router.push = function(to) {s
 //   console.log("路由拦截push");
 //   return routerPush.call(this, to).catch(error => error);
 // };

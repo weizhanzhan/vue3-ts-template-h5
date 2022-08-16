@@ -964,7 +964,7 @@ module.exports = {
 
 
 ## 关于我
-![Image text](https://github.com/weizhanzhan/antd-vue-admin/blob/typescript_dev/public/me.png)
+![Image text](https://gitee.com/zhan961023/vue-admin-preview/blob/typescript_dev/public/me.png)
 加我微信，邀你进入技术交流群，交流学习 😄 共同进步<br>
 如果喜欢请给我一个小♥♥ ⭐ （づ￣3￣）づ
 

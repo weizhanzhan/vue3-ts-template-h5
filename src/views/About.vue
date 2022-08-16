@@ -49,6 +49,18 @@ export default defineComponent({
     const todos = ref([]);
     const container = ref<HTMLElement>();
 
+    const person = reactive({
+      state: {
+        age: 0,
+        name: "weizhanzhan"
+      },
+      methods: {
+        setAge: (age: number) => {
+          person.state.age = age;
+        }
+      }
+    });
+
     const state = reactive({
       startY: 0
     });
@@ -87,7 +99,15 @@ export default defineComponent({
       }
     };
 
-    return { todos, state, onDragStart, onDragOver, onDragEnd, container };
+    return {
+      todos,
+      state,
+      onDragStart,
+      onDragOver,
+      onDragEnd,
+      container,
+      person
+    };
   }
 });
 </script>

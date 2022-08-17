@@ -88,7 +88,6 @@ const useVideoCurrent = () => {
   return new Promise<Array<{ key: number }>>((resolve, reject) => {
     const { current } = state;
     let result: Array<{ key: number }> = [];
-    console.log(current);
     if (current + 1 >= videoList.length) {
       const start = current - 2;
       const end = videoList.length;
@@ -101,7 +100,6 @@ const useVideoCurrent = () => {
       } else {
         const start = current - 2;
         const end = current + 3;
-        console.log(start);
         result = videoList.slice(start, end);
       }
     }

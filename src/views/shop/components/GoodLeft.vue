@@ -21,7 +21,6 @@ export default defineComponent({
     let bscroll = reactive({});
     onMounted(() => {
       const wrapper = document.getElementById("wrapper") as HTMLElement;
-      console.log(wrapper);
 
       bscroll = new BScroll(wrapper, {
         // movable: true

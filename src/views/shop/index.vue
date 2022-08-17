@@ -17,7 +17,6 @@ export default defineComponent({
   setup() {
     let refs: unknown;
     const bindRef = (el: unknown) => {
-      console.log(el);
       refs = el;
     };
     onMounted(() => {

@@ -61,15 +61,12 @@ export default defineComponent({
     const headerHeightAndContentTop = ref(INIT_HEIGHT);
     const bindContainertDom = (el: HTMLElement) => (containerDom = el);
     const bindContentDom = (el: HTMLElement) => (contentElement = el);
-    console.log(contentElement);
     const scroll = function() {
       const top = containerDom?.scrollTop || 0;
       // const mintop =
       //   INIT_HEIGHT - (top > MAX_TOP_SCROLL ? MAX_TOP_SCROLL : top);
       // headerHeightAndContentTop.value = mintop;
-      console.log(top);
       if (top > MAX_TOP_SCROLL && contentElement) {
-        console.log("超过了");
         contentElement.style.position = "absolute";
         contentElement.style.top = INIT_HEIGHT - MAX_TOP_SCROLL + "px";
 

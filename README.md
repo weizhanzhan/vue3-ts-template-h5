@@ -173,7 +173,6 @@ export default {
   name: 'App',
   setup() {
     let box = ref(null);
-    console.log(box.value);
 
     // 由于 template 中的 div 属性 ref 引用了一个对象 box，因此 box 将与这个 div 执行绑定。
     // 但由于 setup 执行时期，还未创建实际的 div，所以如果要进行与 box 的交互，必须在生命周期中间执行获取。
@@ -297,7 +296,6 @@ instance.interceptors.response.use(
     if (successCode.indexOf(code) !== -1) {
       return res;
     } else {
-      console.log(msg);
       return Promise.reject();
     }
   },
@@ -307,7 +305,6 @@ instance.interceptors.response.use(
       return Promise.reject(error);
     } else {
       const { message } = error;
-      console.log(message);
       return Promise.reject(error);
     }
   }

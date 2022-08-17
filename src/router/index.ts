@@ -68,26 +68,14 @@ const router = createRouter({
   routes
 });
 
-// const routerPush = router.push;
-// router.push = function(to) {s
-//   console.log("路由拦截push");
-//   return routerPush.call(this, to).catch(error => error);
-// };
-
-// router.back = function() {
-//   console.log("路由拦截back");
-//   return router.go(-1);
-// };
 function RouterStack(router: Router) {
   // const stack = [];
   router.afterEach((to, from) => {
     if (!store.state.user.loginUser) {
       store.commit("setUserInfo", useRandomName());
     }
-    console.log("store", store.state.user.loginUser);
 
     console.log(to, from);
-    console.log(provideStore.planList.value);
   });
   return router;
 }

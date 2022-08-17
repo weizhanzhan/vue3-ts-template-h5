@@ -13,6 +13,9 @@ function resolve(dir) {
   return path.join(__dirname, dir);
 }
 
+const { VantResolver } = require("unplugin-vue-components/resolvers");
+const ComponentsPlugin = require("unplugin-vue-components/webpack");
+
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const autoprefixer = require("autoprefixer");
 module.exports = {
@@ -44,6 +47,11 @@ module.exports = {
   },
   //配置路径别名
   configureWebpack: {
+    plugins: [
+      ComponentsPlugin({
+        resolvers: [VantResolver()]
+      })
+    ],
     resolve: {
       alias: {
         "@": resolve("src"),

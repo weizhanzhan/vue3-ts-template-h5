@@ -63,7 +63,7 @@ const state = reactive({
   current: 0
 });
 const useVideo = () => {
-  return new Promise<Array<{ key: number }>>((resolve, reject) => {
+  return new Promise<Array<{ key: number }>>(resolve => {
     const videoLength = videoList.length;
     const { page, size, initStart } = state;
     const start = page * size + initStart;
@@ -85,7 +85,7 @@ const useVideo = () => {
 };
 
 const useVideoCurrent = () => {
-  return new Promise<Array<{ key: number }>>((resolve, reject) => {
+  return new Promise<Array<{ key: number }>>(resolve => {
     const { current } = state;
     let result: Array<{ key: number }> = [];
     if (current + 1 >= videoList.length) {

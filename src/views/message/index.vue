@@ -142,26 +142,49 @@ export default defineComponent({
       }
     };
     const getMessages = async () => {
-      const messages = await form.findAll();
-      const init: BmobMessageOption = {
-        objectId: "1",
-        name: "zhanzhan.wei",
-        content:
-          "Hello everyone! 欢迎大家，请适当言论，喜欢记得给个star呀！(づ￣ 3￣)づ",
-        files: [
-          require("../../assets/images/1.png"),
-          require("../../assets/images/2.png"),
-          require("../../assets/images/3.png"),
-          require("../../assets/images/4.png"),
-          require("../../assets/images/qrcode.jpg"),
-          require("../../assets/images/5.png"),
-          require("../../assets/images/6.png"),
-          require("../../assets/images/7.png"),
-          require("../../assets/images/8.png")
-        ],
-        state: false
-      };
-      state.messages = [init, ...messages];
+      console.log(1);
+      try {
+        const messages = await form.findAll();
+        const init: BmobMessageOption = {
+          objectId: "1",
+          name: "zhanzhan.wei",
+          content:
+            "Hello everyone! 欢迎大家，请适当言论，喜欢记得给个star呀！(づ￣ 3￣)づ",
+          files: [
+            require("../../assets/images/1.png"),
+            require("../../assets/images/2.png"),
+            require("../../assets/images/3.png"),
+            require("../../assets/images/4.png"),
+            require("../../assets/images/qrcode.jpg"),
+            require("../../assets/images/5.png"),
+            require("../../assets/images/6.png"),
+            require("../../assets/images/7.png"),
+            require("../../assets/images/8.png")
+          ],
+          state: false
+        };
+        state.messages = [init, ...messages];
+      } catch (error) {
+        const init: BmobMessageOption = {
+          objectId: "1",
+          name: "zhanzhan.wei",
+          content:
+            "Hello everyone! 欢迎大家，请适当言论，喜欢记得给个star呀！(づ￣ 3￣)づ",
+          files: [
+            require("../../assets/images/1.png"),
+            require("../../assets/images/2.png"),
+            require("../../assets/images/3.png"),
+            require("../../assets/images/4.png"),
+            require("../../assets/images/qrcode.jpg"),
+            require("../../assets/images/5.png"),
+            require("../../assets/images/6.png"),
+            require("../../assets/images/7.png"),
+            require("../../assets/images/8.png")
+          ],
+          state: false
+        };
+        state.messages = [init];
+      }
     };
 
     // 留言

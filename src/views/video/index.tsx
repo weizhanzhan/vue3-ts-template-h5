@@ -59,7 +59,6 @@ export default defineComponent({
     };
 
     const videoClick = (video: VideoOption, index: number) => {
-      console.log("clik", video);
       const currentVideoRef = videoRefs.value[index] as HTMLVideoElement;
       if (video.playing) {
         currentVideoRef.pause();
@@ -76,7 +75,6 @@ export default defineComponent({
       state.videos[index].playing = true;
       state.previousVideoIndex = index;
     };
-    console.log(1);
     onMounted(() => {
       //首次进来，默认播放第一个
       // const v1 = document.getElementById("v1") as HTMLVideoElement;
